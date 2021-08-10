@@ -10,11 +10,7 @@
 
 / {
 	model = "Radxa ROCK 3 Model A";
-    compatible = "radxa,rock3a", "rockchip,rk3568";
-
-	chosen: chosen {
-		bootargs = "earlycon=uart8250,mmio32,0xfe660000 console=ttyFIQ0 root=/dev/mmcblk0p6 rw rootfstype=ext4 rootwait";
-	};
+	compatible = "radxa,rock3a", "rockchip,rk3568";
 
 	fiq-debugger {
 		compatible = "rockchip,fiq-debugger";
