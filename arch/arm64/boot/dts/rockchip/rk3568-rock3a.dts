@@ -940,6 +940,10 @@
 	pinctrl-0 = <&uart1m0_xfer &uart1m0_ctsn>;
 };
 
+&pwm8 {
+	status = "okay";
+};
+
 &reserved_memory {
 	ramoops: ramoops@110000 {
 		compatible = "ramoops";
