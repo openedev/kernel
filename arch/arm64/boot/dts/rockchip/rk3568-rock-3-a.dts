@@ -959,6 +959,14 @@
 	status = "okay";
 };
 
+&can1 {
+	assigned-clocks = <&cru CLK_CAN1>;
+	assigned-clock-rates = <100000000>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&can1m0_pins>;
+	status = "okay";
+};
+
 &pinctrl {
 	pmic {
 		pmic_int: pmic_int {
