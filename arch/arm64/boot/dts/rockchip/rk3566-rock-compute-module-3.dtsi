@@ -173,7 +173,7 @@
 		status = "okay";
 	};
 
-	gpio-leds {
+	gpio_leds: gpio-leds {
 		compatible = "gpio-leds";
 		status = "okay";
 
