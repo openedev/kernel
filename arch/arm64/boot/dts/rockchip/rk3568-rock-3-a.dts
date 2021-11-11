@@ -940,10 +940,6 @@
 	pinctrl-0 = <&uart1m0_xfer &uart1m0_ctsn>;
 };
 
-&pwm8 {
-	status = "okay";
-};
-
 &reserved_memory {
 	ramoops: ramoops@110000 {
 		compatible = "ramoops";
@@ -956,14 +952,6 @@
 };
 
 &rng {
-	status = "okay";
-};
-
-&can1 {
-	assigned-clocks = <&cru CLK_CAN1>;
-	assigned-clock-rates = <100000000>;
-	pinctrl-names = "default";
-	pinctrl-0 = <&can1m0_pins>;
 	status = "okay";
 };
 
