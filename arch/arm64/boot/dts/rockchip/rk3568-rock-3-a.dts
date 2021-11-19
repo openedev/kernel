@@ -699,6 +699,12 @@
 	status = "okay";
 };
 
+&bus_npu {
+	bus-supply = <&vdd_logic>;
+	pvtm-supply = <&vdd_cpu>;
+	status = "okay";
+};
+
 &rknpu {
 	memory-region = <&rknpu_reserved>;
 	rknpu-supply = <&vdd_npu>;
@@ -706,7 +712,7 @@
 };
 
 &rknpu_mmu {
-	status = "disabled";
+	status = "okay";
 };
 
 &saradc {
