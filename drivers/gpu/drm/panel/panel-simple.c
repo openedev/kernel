@@ -3458,6 +3458,28 @@ static const struct panel_desc tianma_tm070rvhg71 = {
 	.connector_type = DRM_MODE_CONNECTOR_LVDS,
 };
 
+static const struct drm_display_mode ti_dlpc3433_dmd_720p_mode = {
+	.clock		= 117000,
+
+	.hdisplay	= 1280,
+	.hsync_start	= 1280 + 360,
+	.hsync_end	= 1280 + 360 + 90,
+	.htotal		= 1280 + 360 + 90 + 362,
+
+	.vdisplay	= 720,
+	.vsync_start	= 720 + 100,
+	.vsync_end	= 720 + 100 + 12,
+	.vtotal		= 720 + 100 + 12 + 100,
+};
+
+static const struct panel_desc ti_dlpc3433_dmd_720p = {
+	.modes = &ti_dlpc3433_dmd_720p_mode,
+	.num_modes = 1,
+	.bpc = 8,
+	.bus_format = MEDIA_BUS_FMT_RGB565_1X16,
+	.connector_type = DRM_MODE_CONNECTOR_DPI,
+};
+
 static const struct drm_display_mode ti_nspire_cx_lcd_mode[] = {
 	{
 		.clock = 10000,
@@ -4075,6 +4097,9 @@ static const struct of_device_id platform_of_match[] = {
 	}, {
 		.compatible = "ti,nspire-cx-lcd-panel",
 		.data = &ti_nspire_cx_lcd_panel,
+	}, {
+		.compatible = "ti,dlpc3433-dmd-720p",
+		.data = &ti_dlpc3433_dmd_720p,
 	}, {
 		.compatible = "ti,nspire-classic-lcd-panel",
 		.data = &ti_nspire_classic_lcd_panel,
