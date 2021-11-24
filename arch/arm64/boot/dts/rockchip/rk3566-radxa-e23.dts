@@ -7,11 +7,11 @@
 
 /dts-v1/;
 
-#include "rk3566-rock-compute-module-3.dtsi"
+#include "rk3566-radxa-rock-3-compute-module.dtsi"
 
 / {
-	model = "Radxa ROCK CM3 PIE23";
-	compatible = "radxa,rock-cm3-e23-io", "rockchip,rk3566";
+	model = "Radxa E23";
+	compatible = "radxa,e23", "rockchip,rk3566";
 
 	vcc5v0_host: vcc5v0-host-regulator {
 		compatible = "regulator-fixed";
@@ -24,7 +24,6 @@
 		regulator-boot-on;
 	};
 
-	//将SD卡检测脚拉低
 	tf_det: gpio-regulator {
 		compatible = "regulator-gpio";
 		regulator-name = "tf-det";
@@ -41,7 +40,7 @@
 		headset_gpio = <&gpio4 RK_PC6 GPIO_ACTIVE_LOW>;
 		pinctrl-names = "default";
 		pinctrl-0 = <&hp_det>;
-		io-channels = <&saradc 2>;    //HP_HOOK引脚
+		io-channels = <&saradc 2>;    //HP_HOOK
 	};
 
 	vcc_sdpwr: sdmmc-regulator {
@@ -55,11 +54,6 @@
 		startup-delay-us=<100000>;
 		vin-supply=<&vcc3v3_sys>;
 	};
-};
-
-&gpio_leds {
-	/delete-node/ pi-led-green;
-	/delete-node/ pwr-led-red;
 };
 
 &pwm0 {
@@ -114,8 +108,20 @@
 };
 
 &sdmmc0 {
+	max-frequency = <150000000>;
+	supports-sd;
+	bus-width = <4>;
+	cap-mmc-highspeed;
+	cap-sd-highspeed;
+	disable-wp;
+	sd-uhs-sdr104;
 	vmmc-supply = <&vcc_sdpwr>;
+	vqmmc-supply = <&vccio_sd>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&sdmmc0_bus4 &sdmmc0_clk &sdmmc0_cmd &sdmmc0_det>;
+	status = "okay";
 };
+
 
 &u2phy0_host {
 	phy-supply = <&vcc5v0_host>;
@@ -197,12 +203,8 @@
 	};
 
 	sdcard {
-		///delete-node/ sdmmc-pwren;
-
 		sdpwr_en: sdpwr-en {
 			rockchip,pins = <0 RK_PA5 RK_FUNC_GPIO &pcfg_pull_none>;
 		};
 	};
 };
-
-///delete-node/ &vcc_sd;
