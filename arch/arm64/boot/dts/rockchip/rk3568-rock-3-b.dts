@@ -320,7 +320,7 @@
 		clocks = <&rk809 1>;
 		clock-names = "clk_wifi";
 		rockchip,grf = <&grf>;
-		wifi_chip_type = "ap6256";
+		wifi_chip_type = "ap6275s";
 		pinctrl-names = "default";
 		pinctrl-0 = <&wifi_host_wake_irq>;
 		WIFI,host_wake_irq = <&gpio3 RK_PD5 GPIO_ACTIVE_HIGH>;
@@ -1115,7 +1115,7 @@
 	assigned-clock-rates = <100000000>;
 	pinctrl-names = "default";
 	pinctrl-0 = <&can1m0_pins>;
-	status = "okay";
+	status = "disabled";
 };
 
 &pinctrl {
