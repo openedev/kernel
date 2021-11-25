@@ -186,7 +186,10 @@
 };
 
 &pcie2x1 {
-	status = "disabled";
+	reset-gpios = <&gpio1 RK_PB2 GPIO_ACTIVE_HIGH>;
+	vpcie3v3-supply = <&vcc3v3_sys>;
+	pinctrl-0 = <&pcie20m2_pins>;
+	status = "okay";
 };
 
 &pinctrl {
@@ -205,6 +208,14 @@
 	sdcard {
 		sdpwr_en: sdpwr-en {
 			rockchip,pins = <0 RK_PA5 RK_FUNC_GPIO &pcfg_pull_none>;
+		};
+	};
+
+	pcie20 {
+		pcie20m2_pins: pcie20m2-pins {
+			rockchip,pins =
+				/* pcie20_clkreqnm2 */
+				<1 RK_PB0 4 &pcfg_pull_none>;
 		};
 	};
 };
