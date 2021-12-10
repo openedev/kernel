@@ -967,13 +967,9 @@ static int sun6i_dsi_attach(struct mipi_dsi_host *host,
 
 	if (IS_ERR(panel))
 		return PTR_ERR(panel);
-	if (!dsi->drm || !dsi->drm->registered)
-		return -EPROBE_DEFER;
 
 	dsi->panel = panel;
 	dsi->device = device;
-
-	drm_kms_helper_hotplug_event(dsi->drm);
 
 	dev_info(host->dev, "Attached device %s\n", device->name);
 
@@ -987,8 +983,6 @@ static int sun6i_dsi_detach(struct mipi_dsi_host *host,
 
 	dsi->panel = NULL;
 	dsi->device = NULL;
-
-	drm_kms_helper_hotplug_event(dsi->drm);
 
 	return 0;
 }
@@ -1077,8 +1071,6 @@ static int sun6i_dsi_bind(struct device *dev, struct device *master,
 
 	drm_connector_attach_encoder(&dsi->connector, &dsi->encoder);
 
-	dsi->drm = drm;
-
 	return 0;
 
 err_cleanup_connector:
@@ -1091,7 +1083,7 @@ static void sun6i_dsi_unbind(struct device *dev, struct device *master,
 {
 	struct sun6i_dsi *dsi = dev_get_drvdata(dev);
 
-	dsi->drm = NULL;
+	drm_encoder_cleanup(&dsi->encoder);
 }
 
 static const struct component_ops sun6i_dsi_ops = {
