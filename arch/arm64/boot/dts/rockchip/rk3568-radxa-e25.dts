@@ -45,6 +45,16 @@
 		regulator-always-on;
 		regulator-boot-on;
 	};
+
+	em05_modem: em05-modem {
+		compatible = "lte-em05-modem-platdata";
+		pinctrl-names = "default";
+		pinctrl-0 = <&em05_power_en &em05_airplane_mode &em05_reset>;
+		em05,power-gpio = <&gpio0 RK_PD6 GPIO_ACTIVE_HIGH>;
+		em05,reset-gpio = <&gpio0 RK_PD5 GPIO_ACTIVE_HIGH>;
+		em05,airplane-gpio = <&gpio1 RK_PA4 GPIO_ACTIVE_HIGH>;
+		status = "okay";
+	};
 };
 
 &sdio_pwrseq {
@@ -242,6 +252,20 @@
 	pci-en {
 		vcc3v3_pci_en: vcc3v3-pci-en {
 			rockchip,pins = <3 RK_PA7 RK_FUNC_GPIO &pcfg_pull_none>;
+		};
+	};
+
+	lte-em05-modem {
+		em05_airplane_mode: em05-airplane-mode {
+			rockchip,pins = <1 RK_PA4 RK_FUNC_GPIO &pcfg_pull_none>;
+		};
+
+		em05_power_en: em05-power-en {
+			rockchip,pins = <0 RK_PD6 RK_FUNC_GPIO &pcfg_pull_none>;
+		};
+
+		em05_reset: em05-reset {
+			rockchip,pins = <0 RK_PD5 RK_FUNC_GPIO &pcfg_pull_none>;
 		};
 	};
 };
