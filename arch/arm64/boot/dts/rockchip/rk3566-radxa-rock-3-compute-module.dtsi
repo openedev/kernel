@@ -47,21 +47,6 @@
 			<0x0 0xfd90f000 0x0 0x1000>;
 	};
 
-	hdmi_sound: hdmi-sound {
-		compatible = "simple-audio-card";
-		simple-audio-card,format = "i2s";
-		simple-audio-card,mclk-fs = <128>;
-		simple-audio-card,name = "rockchip,hdmi";
-		status = "disabled";
-
-		simple-audio-card,cpu {
-				sound-dai = <&i2s0_8ch>;
-		};
-		simple-audio-card,codec {
-				sound-dai = <&hdmi>;
-		};
-	};
-
 	reserved_memory: reserved-memory {
 		#address-cells = <2>;
 		#size-cells = <2>;
@@ -71,7 +56,7 @@
 			compatible = "shared-dma-pool";
 			inactive;
 			reusable;
-			size = <0x0 0x08000000>;
+			size = <0x0 0x20000000>;
 			alignment = <0x0 0x1000>;
 		};
 	};
@@ -208,31 +193,6 @@
 &gpu {
 	mali-supply = <&vdd_gpu>;
 	status = "okay";
-};
-
-&display_subsystem {
-    status = "okay";
-};
-
-&hdmi {
-	status = "okay";
-};
-
-&hdmi_in_vp0 {
-	status = "okay";
-};
-
-&hdmi_in_vp1 {
-	status = "disabled";
-};
-
-&hdmi_sound {
-	status = "okay";
-};
-
-&route_hdmi {
-	status = "okay";
-	connect = <&vp0_out_hdmi>;
 };
 
 &pmu_io_domains {
@@ -550,10 +510,6 @@
 			status = "okay";
 		};
 	};
-};
-
-&i2s0_8ch {
-	status = "okay";
 };
 
 &i2s1_8ch {

@@ -82,31 +82,6 @@
     status = "disabled";
 };
 
-&hdmi {
-	status = "disabled";
-};
-
-&hdmi_in_vp0 {
-	status = "disabled";
-};
-
-&hdmi_in_vp1 {
-	status = "disabled";
-};
-
-&hdmi_sound {
-	status = "disabled";
-};
-
-&route_hdmi {
-	status = "disabled";
-	connect = <&vp0_out_hdmi>;
-};
-
-&i2s0_8ch {
-	status = "disabled";
-};
-
 &sdmmc0 {
 	max-frequency = <150000000>;
 	supports-sd;
@@ -121,7 +96,6 @@
 	pinctrl-0 = <&sdmmc0_bus4 &sdmmc0_clk &sdmmc0_cmd &sdmmc0_det>;
 	status = "okay";
 };
-
 
 &u2phy0_host {
 	phy-supply = <&vcc5v0_host>;
