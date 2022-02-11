@@ -9,7 +9,7 @@
 
 
 / {
-	model = "Rockchip ROCK 3 Model B";
+	model = "Radxa ROCK 3 Model B";
     compatible = "radxa,rock-3-b", "rockchip,rk3568";
 
 	// chosen: chosen {
