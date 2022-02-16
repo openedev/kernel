@@ -694,6 +694,13 @@ static int cdn_dp_encoder_atomic_check(struct drm_encoder *encoder,
 	s->output_mode = ROCKCHIP_OUT_MODE_AAAA;
 	s->output_type = DRM_MODE_CONNECTOR_DisplayPort;
 
+	/*
+	 * Do a full modeset if crtc_state->active is changed to be true.
+	 * This ensures our ->mode_set() is called to get the CDN controller
+	 * and the PHY ready to send video data.
+	 */
+	crtc_state->mode_changed = true;
+
 	return 0;
 }
 
