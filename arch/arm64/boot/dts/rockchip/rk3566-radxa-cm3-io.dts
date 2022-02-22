@@ -156,6 +156,10 @@
 	status = "okay";
 };
 
+&i2s1_8ch {
+	status = "okay";
+};
+
 &sdmmc0 {
 	max-frequency = <150000000>;
 	supports-sd;
