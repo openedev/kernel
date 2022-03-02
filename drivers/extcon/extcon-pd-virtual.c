@@ -202,6 +202,38 @@ static irqreturn_t dp_det_irq_handler(int irq, void *dev_id)
 	return IRQ_HANDLED;
 }
 
+static void vpd_extcon_init(struct virtual_pd *vpd)
+{
+	struct device *dev = vpd->dev;
+	u32 tmp = 0;
+	int ret = 0;
+
+	ret = device_property_read_u32(dev, "vpd,init-flip", &tmp);
+	if (ret < 0)
+		vpd->flip = 0;
+	else
+		vpd->flip = tmp;
+	dev_dbg(dev, "init-flip = %d\n", vpd->flip);
+
+	ret = device_property_read_u32(dev, "vpd,init-ss", &tmp);
+	if (ret < 0)
+		vpd->usb_ss = 0;
+	else
+		vpd->usb_ss = tmp;
+	dev_dbg(dev, "init-ss = %d\n", vpd->usb_ss);
+
+	ret = device_property_read_u32(dev, "vpd,init-mode", &tmp);
+	if (ret < 0)
+		vpd->mode = 0;
+	else
+		vpd->mode = tmp;
+	dev_dbg(dev, "init-mode = %d\n", vpd->mode);
+	if(gpiod_get_raw_value(vpd->gpio_irq)) {
+		vpd_extcon_notify_set(vpd);
+		vpd->plug_state=1;
+	}
+}
+
 static int vpd_extcon_probe(struct platform_device *pdev)
 {
 	struct virtual_pd *vpd;
@@ -307,13 +339,7 @@ static int vpd_extcon_probe(struct platform_device *pdev)
 		return ret;
 	}
 
-	vpd->flip = 0;
-	vpd->usb_ss = 1;
-	vpd->mode = 2;
-	if(gpiod_get_raw_value(vpd->gpio_irq)) {
-		vpd_extcon_notify_set(vpd);
-		vpd->plug_state=1;
-	}
+	vpd_extcon_init(vpd);
 	INIT_DELAYED_WORK(&vpd->irq_work, extcon_pd_delay_irq_work);
 
 	vpd->irq=gpiod_to_irq(vpd->gpio_irq);
