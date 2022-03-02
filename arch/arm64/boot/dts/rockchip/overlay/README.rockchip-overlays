@@ -31,8 +31,9 @@ Add optional parameters with their values to /boot/uEnv.txt if you want to chang
 - rk3568-pwm1-m0 rk3568-pwm1-m1 rk3568-pwm2-m0 rk3568-pwm2-m1 rk3568-pwm8-m0-fan rk3568-pwm9-m0 rk3568-pwm12-m0
   rk3568-pwm12-m1 rk3568-pwm13-m0 rk3568-pwm13-m1 rk3568-pwm14-m0 rk3568-pwm14-m1 k3568-pwm15-m0 rk3568-pwm15-m1
 - rk3568-spi3-m1-cs0-spidev
-- rk3568-uart0 rk3568-uart3-m0 rk3568-uart3-m1 rk3568-uart5-m1 rk3568-uart7-m1 rk3568-uart8-m1 rk3568-uart9-m1
+- rk3568-uart0 rk3568-uart2 rk3568-uart3-m0 rk3568-uart3-m1 rk3568-uart5-m1 rk3568-uart7-m1 rk3568-uart8-m1 rk3568-uart9-m1
 - rk3568-w1-gpio
+- rk3568-fiq-debugger-uart2m0
 
 #### rk3568-can1-m0
 
@@ -206,6 +207,16 @@ Usage: Add the item "rk3568-uart0" to "overlays=" line in /boot/uEnv.txt.
 
 overlays=rk3568-uart0
 
+#### rk3568-uart2-m0
+
+Activates serial port 2 on M0 (/dev/ttyS2)
+
+UART2 M0 pins: UART2_RX_M0, UART2_TX_M0
+
+Usage: Add the item "rk3568-uart2-m0" to "overlays=" line in /boot/uEnv.txt.
+
+overlays=rk3568-uart2-m0
+
 #### rk3568-uart3-m0
 
 Activates serial port 3 on M0 (/dev/ttyS3)
@@ -284,3 +295,16 @@ Also param_w1_pin is needed.
 
 overlays=rk3568-w1-gpio
 param_w1_pin=GPIO3_A5
+
+#### rk3568-fiq-debugger-uart2m0
+
+Activates serial console
+
+serial console pins: UART2_RX_M0, UART2_TX_M0, GND
+
+Usage: Add the item "rk3568-fiq-debugger-uart2m0" to "overlays=" line and one line "console=ttyFIQ0" in /boot/uEnv.txt.
+
+console=ttyFIQ0
+overlays=rk3568-fiq-debugger-uart2m0
+
+The baud rate is 1500000n8

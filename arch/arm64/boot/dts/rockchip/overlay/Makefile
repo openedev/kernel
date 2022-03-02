@@ -2,6 +2,7 @@
 dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
 	rk3568-can1-m0.dtbo \
 	rk3568-can1-m1.dtbo \
+	rk3568-fiq-debugger-uart2m0.dtbo \
 	rk3568-i2c2-m0.dtbo \
 	rk3568-i2c3-m0.dtbo \
 	rk3568-pwm12-m0.dtbo \
@@ -20,6 +21,7 @@ dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
 	rk3568-pwm9-m0.dtbo \
 	rk3568-spi3-m1-cs0-spidev.dtbo \
 	rk3568-uart0.dtbo \
+	rk3568-uart2-m0.dtbo \
 	rk3568-uart3-m0.dtbo \
 	rk3568-uart3-m1.dtbo \
 	rk3568-uart5-m1.dtbo \
