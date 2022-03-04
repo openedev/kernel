@@ -956,13 +956,13 @@
 
 /* USB 3.0 OTG/SATA Combo PHY_0 */
 &combphy0_us {
-	rockchip,dis-u3otg0-port;
+//	rockchip,dis-u3otg0-port;
 	status = "okay";
 };
 
 /* USB 3.0 Host/SATA/QSGMII Combo PHY_1 */
 &combphy1_usq {
-	rockchip,dis-u3otg1-port;
+//	rockchip,dis-u3otg1-port;
 	status = "okay";
 };
 
