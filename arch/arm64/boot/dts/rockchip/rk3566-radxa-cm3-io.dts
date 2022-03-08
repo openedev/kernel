@@ -68,29 +68,6 @@
 		regulator-always-on;
 		regulator-boot-on;
 	};
-
-	vcc_ch482d1: vcc-ch482d1-regulator {
-		compatible = "regulator-fixed";
-		enable-active-low;
-		gpio = <&gpio3 RK_PC7 GPIO_ACTIVE_LOW>;
-		pinctrl-names = "default";
-		pinctrl-0 = <&ch482d_en1>;
-		regulator-name = "vcc_ch482d1";
-		regulator-always-on;
-		regulator-boot-on;
-	};
-
-	vcc_ch482d2: vcc-ch482d2-regulator {
-		compatible = "regulator-fixed";
-		enable-active-low;
-		gpio = <&gpio3 RK_PC6 GPIO_ACTIVE_HIGH>;
-		pinctrl-names = "default";
-		pinctrl-0 = <&ch482d_en2>;
-		regulator-name = "vcc_ch482d2";
-		regulator-always-on;
-		regulator-boot-on;
-	};
-
 };
 
 &gpio_leds {
@@ -106,20 +83,6 @@
 		linux,default-trigger = "none";
 		default-state = "on";
 		pinctrl-0 = <&pwr_led>;
-	};
-
-	sata1-led {
-		gpios = <&gpio0 18 GPIO_ACTIVE_HIGH>;
-		linux,default-trigger = "nand-disk";
-		default-state = "off";
-		pinctrl-0 = <&sata1_led>;
-	};
-
-	sata2-led {
-		gpios = <&gpio4 16 GPIO_ACTIVE_HIGH>;
-		linux,default-trigger = "nand-disk";
-		default-state = "off";
-		pinctrl-0 = <&sata2_led>;
 	};
 };
 
@@ -272,14 +235,13 @@
 	};
 
 	ch482d {
-		//usb3.0 --> sata1
+		//pcie2.0 --> sata1
 		ch482d_en1: ch482d-en1 {
-			rockchip,pins = <3 RK_PC7 RK_FUNC_GPIO &pcfg_output_low>;
+			rockchip,pins = <3 RK_PC6 RK_FUNC_GPIO &pcfg_pull_none>;
 		};
-
-		//pcie2.0 --> sata2
+		//usb3.0 --> sata2
 		ch482d_en2: ch482d-en2 {
-			rockchip,pins = <3 RK_PC6 RK_FUNC_GPIO &pcfg_output_low>;
+			rockchip,pins = <3 RK_PC7 RK_FUNC_GPIO &pcfg_pull_none>;
 		};
 	};
 
