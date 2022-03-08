@@ -1,0 +1,80 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "radxa,radxa-cm3-io", "rockchip,rk3566";
+
+	fragment@0 {
+		target-path = "/";
+
+		__overlay__ {
+			vcc-ch482d1-regulator {
+				compatible = "regulator-fixed";
+				enable-active-high;
+				gpio = <&gpio3 0x16 0x00>;
+				pinctrl-names = "default";
+				pinctrl-0 = <&ch482d_en1>;
+				regulator-name = "vcc_ch482d1";
+				regulator-always-on;
+				regulator-boot-on;
+			};
+
+			vcc-ch482d2-regulator {
+				compatible = "regulator-fixed";
+				enable-active-high;
+				gpio = <&gpio3 0x17 0x00>;
+				pinctrl-names = "default";
+				pinctrl-0 = <&ch482d_en2>;
+				regulator-name = "vcc_ch482d2";
+				regulator-always-on;
+				regulator-boot-on;
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&sata1>;
+
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@2 {
+		target = <&sata2>;
+
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@3 {
+		target = <&gpio_leds>;
+
+		__overlay__ {
+			sata1-led {
+				gpios = <&gpio0 0x12 0x00>;
+				linux,default-trigger = "nand-disk";
+				default-state = "on";
+				pinctrl-0 = <&sata1_led>;
+			};
+
+			sata2-led {
+				gpios = <&gpio4 0x10 0x00>;
+				linux,default-trigger = "nand-disk";
+				default-state = "on";
+				pinctrl-0 = <&sata2_led>;
+			};
+		};
+	};
+
+	fragment@4 {
+		target = <&pcie2x1>;
+
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+};
+

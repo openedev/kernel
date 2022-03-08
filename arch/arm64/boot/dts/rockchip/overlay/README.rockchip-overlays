@@ -336,3 +336,11 @@ Activates em05-modem
 Usage: Add the item "rk3568-rock-3b-em05-modem" line in /boot/uEnv.txt.
 
 overlays=rk3568-rock-3b-em05-modem
+
+#### rk3568-radxa-cm3-io-sata1-sata2
+
+Activates radxa cm3 io sata1 sata2
+
+Usage: Add the item "cm3-io-sata" line in /boot/uEnv.txt.
+
+overlays=cm3-io-sata

@@ -31,7 +31,8 @@ dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
 	rk3568-uart7-m1.dtbo \
 	rk3568-uart8-m1.dtbo \
 	rk3568-uart9-m1.dtbo \
-	rk3568-w1-gpio.dtbo
+	rk3568-w1-gpio.dtbo \
+	cm3-io-sata.dtbo
 
 scr-$(CONFIG_ARCH_ROCKCHIP) += \
 	rockchip-fixup.scr
