@@ -26,6 +26,7 @@ Add optional parameters with their values to /boot/uEnv.txt if you want to chang
 
 ### RK3568 Overlay details:
 
+- radxa-5inch-touchscreen-on-rock-3a
 - rk3568-can1-m0 rk3568-can1-m1
 - rk3568-i2c2-m0 rk3568-i2c3-m0
 - rk3568-pwm1-m0 rk3568-pwm1-m1 rk3568-pwm2-m0 rk3568-pwm2-m1 rk3568-pwm8-m0-fan rk3568-pwm9-m0 rk3568-pwm12-m0
@@ -36,6 +37,14 @@ Add optional parameters with their values to /boot/uEnv.txt if you want to chang
 - rk3568-fiq-debugger-uart2m0
 - rk3568-rock-3b-em05-medom
 - rk3568-rock-3b-sata2
+
+#### radxa-5inch-touchscreen-on-rock-3a
+
+Activates Radxa 5inch Touchscreen on ROCK 3A
+
+Usage: Add the item "radxa-5inch-touchscreen-on-rock-3a" to "overlays=" line in /boot/uEnv.txt.
+
+overlays=rradxa-5inch-touchscreen-on-rock-3a
 
 #### rk3568-can1-m0
 
