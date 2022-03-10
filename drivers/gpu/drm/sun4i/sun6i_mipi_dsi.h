@@ -12,6 +12,7 @@
 #include <drm/drm_connector.h>
 #include <drm/drm_encoder.h>
 #include <drm/drm_mipi_dsi.h>
+#include <linux/gpio/consumer.h>
 
 #define SUN6I_DSI_TCON_DIV	4
 
@@ -25,6 +26,8 @@ struct sun6i_dsi {
 	struct regmap		*regs;
 	struct regulator	*regulator;
 	struct reset_control	*reset;
+	struct gpio_desc	*switch_gpio;
+	struct gpio_desc	*enable_gpio;
 	struct phy		*dphy;
 
 	struct device		*dev;

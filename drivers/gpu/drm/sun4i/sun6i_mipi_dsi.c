@@ -823,7 +823,23 @@ static int sun6i_dsi_bridge_attach(struct drm_bridge *bridge,
 {
 	struct sun6i_dsi *dsi = bridge_to_sun6i_dsi(bridge);
 
-	return drm_bridge_attach(bridge->encoder, dsi->next_bridge, NULL, 0);
+	DRM_INFO("%s: In\n", __func__);
+	/**
+	 * Renew Mux logic:
+	 *
+	 * switch: R16_DeMUX_SEL
+	 * enable: SEL_LVDS_MUX
+	 *
+	 * switch	enable		output
+	 *  LOW		 LOW		HDMI In -> DSI -> DLPC3433
+	 *  LOW		 HIGH		R16     -> DSI -> DLPC3433
+	 *  HIGH	 LOW		R16     -> DSI -> HDMI Out
+	 */
+	gpiod_set_value_cansleep(dsi->switch_gpio, 1);
+	gpiod_set_value_cansleep(dsi->enable_gpio, 1);
+	DRM_INFO("%s: start drm_bridge_attach\n", __func__);
+
+	return drm_bridge_attach(bridge->encoder, dsi->next_bridge, &dsi->bridge, flags);
 }
 
 static const struct drm_bridge_funcs sun6i_dsi_bridge_funcs = {
@@ -1127,6 +1143,16 @@ static int sun6i_dsi_probe(struct platform_device *pdev)
 		dev_err(dev, "Couldn't get our reset line\n");
 		return PTR_ERR(dsi->reset);
 	}
+
+	dsi->switch_gpio = devm_gpiod_get_optional(dsi->dev, "switch", GPIOD_OUT_LOW);
+	if (IS_ERR(dsi->switch_gpio))
+		return dev_err_probe(dev, PTR_ERR(dsi->switch_gpio),
+				     "Couldn't get switch gpio\n");
+
+	dsi->enable_gpio = devm_gpiod_get_optional(dsi->dev, "enable", GPIOD_OUT_LOW);
+	if (IS_ERR(dsi->enable_gpio))
+		return dev_err_probe(dev, PTR_ERR(dsi->enable_gpio),
+				     "Couldn't get enable gpio\n");
 
 	dsi->regs = devm_regmap_init_mmio(dev, base, &sun6i_dsi_regmap_config);
 	if (IS_ERR(dsi->regs)) {
