@@ -3,6 +3,7 @@ dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
 	radxa-5inch-touchscreen-on-rock-3a.dtbo \
 	rk3568-can1-m0.dtbo \
 	rk3568-can1-m1.dtbo \
+	rk3568-disable-npu.dtbo \
 	rk3568-fiq-debugger-uart2m0.dtbo \
 	rk3568-i2c2-m0.dtbo \
 	rk3568-i2c3-m0.dtbo \

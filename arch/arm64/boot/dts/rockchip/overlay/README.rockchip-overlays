@@ -37,6 +37,7 @@ Add optional parameters with their values to /boot/uEnv.txt if you want to chang
 - rk3568-fiq-debugger-uart2m0
 - rk3568-rock-3b-em05-medom
 - rk3568-rock-3b-sata2
+- rk3568-disable-npu
 
 #### radxa-5inch-touchscreen-on-rock-3a
 
@@ -353,3 +354,11 @@ Activates radxa cm3 io sata1 sata2
 Usage: Add the item "cm3-io-sata" line in /boot/uEnv.txt.
 
 overlays=cm3-io-sata
+
+#### rk3568-disable-npu
+
+Disable RK3566/RK3566 npu
+
+Usage: Add the item "rk3568-disable-npu" line in /boot/uEnv.txt.
+
+overlays=rk3568-disable-npu
