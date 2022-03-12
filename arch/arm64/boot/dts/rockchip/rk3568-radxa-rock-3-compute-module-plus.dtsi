@@ -17,7 +17,7 @@
 / {
     compatible = "radxa,rock-3-compute-module-plus", "rockchip,rk3568";
 
-	fiq-debugger {
+	fiq_debugger: fiq-debugger {
 		compatible = "rockchip,fiq-debugger";
 		rockchip,serial-id = <2>;
 		rockchip,wake-irq = <0>;
