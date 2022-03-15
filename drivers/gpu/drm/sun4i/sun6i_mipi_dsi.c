@@ -959,11 +959,15 @@ static int sun6i_dsi_dcs_read(struct sun6i_dsi *dsi,
 	return 1;
 }
 
+const struct component_ops sun6i_dsi_ops;
+
 static int sun6i_dsi_attach(struct mipi_dsi_host *host,
 			    struct mipi_dsi_device *device)
 {
 	struct sun6i_dsi *dsi = host_to_sun6i_dsi(host);
 	struct drm_panel *panel = of_drm_find_panel(device->dev.of_node);
+	struct device *dev = dsi->dev;
+	int ret;
 
 	if (IS_ERR(panel))
 		return PTR_ERR(panel);
@@ -972,6 +976,13 @@ static int sun6i_dsi_attach(struct mipi_dsi_host *host,
 	dsi->device = device;
 
 	dev_info(host->dev, "Attached device %s\n", device->name);
+
+	ret = component_add(dev, &sun6i_dsi_ops);
+	if (ret) {
+		dev_err(dev, "Couldn't register our component\n");
+		mipi_dsi_host_unregister(&dsi->host);
+		return ret;
+	}
 
 	return 0;
 }
@@ -983,6 +994,8 @@ static int sun6i_dsi_detach(struct mipi_dsi_host *host,
 
 	dsi->panel = NULL;
 	dsi->device = NULL;
+
+	component_del(dsi->dev, &sun6i_dsi_ops);
 
 	return 0;
 }
@@ -1086,7 +1099,7 @@ static void sun6i_dsi_unbind(struct device *dev, struct device *master,
 	drm_encoder_cleanup(&dsi->encoder);
 }
 
-static const struct component_ops sun6i_dsi_ops = {
+const struct component_ops sun6i_dsi_ops = {
 	.bind	= sun6i_dsi_bind,
 	.unbind	= sun6i_dsi_unbind,
 };
@@ -1172,16 +1185,8 @@ static int sun6i_dsi_probe(struct platform_device *pdev)
 		goto err_unprotect_clk;
 	}
 
-	ret = component_add(&pdev->dev, &sun6i_dsi_ops);
-	if (ret) {
-		dev_err(dev, "Couldn't register our component\n");
-		goto err_remove_dsi_host;
-	}
-
 	return 0;
 
-err_remove_dsi_host:
-	mipi_dsi_host_unregister(&dsi->host);
 err_unprotect_clk:
 	clk_rate_exclusive_put(dsi->mod_clk);
 err_attach_clk:
@@ -1195,7 +1200,6 @@ static int sun6i_dsi_remove(struct platform_device *pdev)
 	struct device *dev = &pdev->dev;
 	struct sun6i_dsi *dsi = dev_get_drvdata(dev);
 
-	component_del(&pdev->dev, &sun6i_dsi_ops);
 	mipi_dsi_host_unregister(&dsi->host);
 	clk_rate_exclusive_put(dsi->mod_clk);
 
