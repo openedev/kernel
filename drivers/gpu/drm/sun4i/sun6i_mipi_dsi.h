@@ -16,6 +16,7 @@
 #define SUN6I_DSI_TCON_DIV	4
 
 struct sun6i_dsi {
+	struct drm_bridge	bridge;
 	struct drm_encoder	encoder;
 	struct mipi_dsi_host	host;
 
@@ -29,8 +30,12 @@ struct sun6i_dsi {
 	struct device		*dev;
 	struct mipi_dsi_device	*device;
 	struct drm_bridge	*next_bridge;
-	struct list_head	bridge_chain;
 };
+
+static inline struct sun6i_dsi *bridge_to_sun6i_dsi(struct drm_bridge *bridge)
+{
+	return container_of(bridge, struct sun6i_dsi, bridge);
+}
 
 static inline struct sun6i_dsi *host_to_sun6i_dsi(struct mipi_dsi_host *host)
 {

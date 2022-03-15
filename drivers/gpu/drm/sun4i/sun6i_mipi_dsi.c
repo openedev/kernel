@@ -714,14 +714,14 @@ static int sun6i_dsi_start(struct sun6i_dsi *dsi,
 	return 0;
 }
 
-static void sun6i_dsi_encoder_enable(struct drm_encoder *encoder)
+static void sun6i_dsi_bridge_enable(struct drm_bridge *bridge)
 {
-	struct drm_display_mode *mode = &encoder->crtc->state->adjusted_mode;
-	struct sun6i_dsi *dsi = encoder_to_sun6i_dsi(encoder);
+	struct drm_display_mode *mode = &bridge->encoder->crtc->state->adjusted_mode;
+	struct sun6i_dsi *dsi = bridge_to_sun6i_dsi(bridge);
+	const struct drm_bridge_funcs *funcs = dsi->next_bridge->funcs;
 	struct mipi_dsi_device *device = dsi->device;
 	union phy_configure_opts opts = { };
 	struct phy_configure_opts_mipi_dphy *cfg = &opts.mipi_dphy;
-	struct drm_bridge *iter;
 	u16 delay;
 	int err;
 
@@ -771,10 +771,8 @@ static void sun6i_dsi_encoder_enable(struct drm_encoder *encoder)
 	phy_configure(dsi->dphy, &opts);
 	phy_power_on(dsi->dphy);
 
-	list_for_each_entry(iter, &dsi->bridge_chain, chain_node) {
-		if (iter->funcs->pre_enable)
-			iter->funcs->pre_enable(iter);
-	}
+	if (dsi->next_bridge)
+		funcs->pre_enable(dsi->next_bridge);
 
 	/*
 	 * FIXME: This should be moved after the switch to HS mode.
@@ -788,10 +786,8 @@ static void sun6i_dsi_encoder_enable(struct drm_encoder *encoder)
 	 * ordering on the panels I've tested it with, so I guess this
 	 * will do for now, until that IP is better understood.
 	 */
-	list_for_each_entry(iter, &dsi->bridge_chain, chain_node) {
-		if (iter->funcs->enable)
-			iter->funcs->enable(iter);
-	}
+	if (dsi->next_bridge)
+		funcs->enable(dsi->next_bridge);
 
 	sun6i_dsi_start(dsi, DSI_START_HSC);
 
@@ -800,19 +796,16 @@ static void sun6i_dsi_encoder_enable(struct drm_encoder *encoder)
 	sun6i_dsi_start(dsi, DSI_START_HSD);
 }
 
-static void sun6i_dsi_encoder_disable(struct drm_encoder *encoder)
+static void sun6i_dsi_bridge_disable(struct drm_bridge *bridge)
 {
-	struct sun6i_dsi *dsi = encoder_to_sun6i_dsi(encoder);
-	struct drm_bridge *iter;
+	struct sun6i_dsi *dsi = bridge_to_sun6i_dsi(bridge);
+	const struct drm_bridge_funcs *funcs = dsi->next_bridge->funcs;
 
 	DRM_DEBUG_DRIVER("Disabling DSI output\n");
 
-	list_for_each_entry(iter, &dsi->bridge_chain, chain_node) {
-		if (iter->funcs->disable)
-			iter->funcs->disable(iter);
-
-		if (iter->funcs->post_disable)
-			iter->funcs->post_disable(iter);
+	if (dsi->next_bridge) {
+		funcs->disable(dsi->next_bridge);
+		funcs->post_disable(dsi->next_bridge);
 	}
 
 	phy_power_off(dsi->dphy);
@@ -823,9 +816,18 @@ static void sun6i_dsi_encoder_disable(struct drm_encoder *encoder)
 	regulator_disable(dsi->regulator);
 }
 
-static const struct drm_encoder_helper_funcs sun6i_dsi_enc_helper_funcs = {
-	.disable	= sun6i_dsi_encoder_disable,
-	.enable		= sun6i_dsi_encoder_enable,
+static int sun6i_dsi_bridge_attach(struct drm_bridge *bridge,
+				   enum drm_bridge_attach_flags flags)
+{
+	struct sun6i_dsi *dsi = bridge_to_sun6i_dsi(bridge);
+
+	return drm_bridge_attach(bridge->encoder, dsi->next_bridge, NULL, 0);
+}
+
+static const struct drm_bridge_funcs sun6i_dsi_bridge_funcs = {
+	.disable	= sun6i_dsi_bridge_disable,
+	.enable		= sun6i_dsi_bridge_enable,
+	.attach		= sun6i_dsi_bridge_attach,
 };
 
 static u32 sun6i_dsi_dcs_build_pkt_hdr(struct sun6i_dsi *dsi,
@@ -959,6 +961,12 @@ static int sun6i_dsi_attach(struct mipi_dsi_host *host,
 
 	dev_info(host->dev, "Attached %s\n", device->name);
 
+	dsi->bridge.funcs = &sun6i_dsi_bridge_funcs;
+	dsi->bridge.of_node = dsi->dev->of_node;
+	dsi->bridge.type = DRM_MODE_CONNECTOR_DSI;
+
+	drm_bridge_add(&dsi->bridge);
+
 	ret = component_add(dev, &sun6i_dsi_ops);
 	if (ret) {
 		dev_err(dev, "Couldn't register our component\n");
@@ -978,6 +986,7 @@ static int sun6i_dsi_detach(struct mipi_dsi_host *host,
 	dsi->device = NULL;
 
 	component_del(dsi->dev, &sun6i_dsi_ops);
+	drm_bridge_remove(&dsi->bridge);
 
 	return 0;
 }
@@ -1043,8 +1052,6 @@ static int sun6i_dsi_bind(struct device *dev, struct device *master,
 	struct sun6i_dsi *dsi = dev_get_drvdata(dev);
 	int ret;
 
-	drm_encoder_helper_add(&dsi->encoder,
-			       &sun6i_dsi_enc_helper_funcs);
 	ret = drm_simple_encoder_init(drm, &dsi->encoder,
 				      DRM_MODE_ENCODER_DSI);
 	if (ret) {
@@ -1053,13 +1060,11 @@ static int sun6i_dsi_bind(struct device *dev, struct device *master,
 	}
 	dsi->encoder.possible_crtcs = BIT(0);
 
-	ret = drm_bridge_attach(&dsi->encoder, dsi->next_bridge, NULL, 0);
+	ret = drm_bridge_attach(&dsi->encoder, &dsi->bridge, NULL, 0);
 	if (ret) {
 		dev_err(dsi->dev, "Couldn't attach drm bridge\n");
 		goto err_cleanup_encoder;
 	}
-
-	list_splice_init(&dsi->encoder.bridge_chain, &dsi->bridge_chain);
 
 	return 0;
 
@@ -1096,8 +1101,6 @@ static int sun6i_dsi_probe(struct platform_device *pdev)
 	dsi->dev = dev;
 	dsi->host.ops = &sun6i_dsi_host_ops;
 	dsi->host.dev = dev;
-
-	INIT_LIST_HEAD(&dsi->bridge_chain);
 
 	if (of_device_is_compatible(dev->of_node,
 				    "allwinner,sun6i-a31-mipi-dsi"))
