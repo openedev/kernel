@@ -714,7 +714,8 @@ static int sun6i_dsi_start(struct sun6i_dsi *dsi,
 	return 0;
 }
 
-static void sun6i_dsi_bridge_enable(struct drm_bridge *bridge)
+static void sun6i_dsi_bridge_atomic_enable(struct drm_bridge *bridge,
+					   struct drm_bridge_state *old_bridge_state)
 {
 	struct drm_display_mode *mode = &bridge->encoder->crtc->state->adjusted_mode;
 	struct sun6i_dsi *dsi = bridge_to_sun6i_dsi(bridge);
@@ -772,7 +773,7 @@ static void sun6i_dsi_bridge_enable(struct drm_bridge *bridge)
 	phy_power_on(dsi->dphy);
 
 	if (dsi->next_bridge)
-		funcs->pre_enable(dsi->next_bridge);
+		funcs->atomic_pre_enable(dsi->next_bridge, old_bridge_state);
 
 	/*
 	 * FIXME: This should be moved after the switch to HS mode.
@@ -787,7 +788,7 @@ static void sun6i_dsi_bridge_enable(struct drm_bridge *bridge)
 	 * will do for now, until that IP is better understood.
 	 */
 	if (dsi->next_bridge)
-		funcs->enable(dsi->next_bridge);
+		funcs->atomic_enable(dsi->next_bridge, old_bridge_state);
 
 	sun6i_dsi_start(dsi, DSI_START_HSC);
 
@@ -796,7 +797,8 @@ static void sun6i_dsi_bridge_enable(struct drm_bridge *bridge)
 	sun6i_dsi_start(dsi, DSI_START_HSD);
 }
 
-static void sun6i_dsi_bridge_disable(struct drm_bridge *bridge)
+static void sun6i_dsi_bridge_atomic_disable(struct drm_bridge *bridge,
+					    struct drm_bridge_state *old_bridge_state)
 {
 	struct sun6i_dsi *dsi = bridge_to_sun6i_dsi(bridge);
 	const struct drm_bridge_funcs *funcs = dsi->next_bridge->funcs;
@@ -804,8 +806,8 @@ static void sun6i_dsi_bridge_disable(struct drm_bridge *bridge)
 	DRM_DEBUG_DRIVER("Disabling DSI output\n");
 
 	if (dsi->next_bridge) {
-		funcs->disable(dsi->next_bridge);
-		funcs->post_disable(dsi->next_bridge);
+		funcs->atomic_disable(dsi->next_bridge, old_bridge_state);
+		funcs->atomic_post_disable(dsi->next_bridge, old_bridge_state);
 	}
 
 	phy_power_off(dsi->dphy);
@@ -825,9 +827,12 @@ static int sun6i_dsi_bridge_attach(struct drm_bridge *bridge,
 }
 
 static const struct drm_bridge_funcs sun6i_dsi_bridge_funcs = {
-	.disable	= sun6i_dsi_bridge_disable,
-	.enable		= sun6i_dsi_bridge_enable,
-	.attach		= sun6i_dsi_bridge_attach,
+	.atomic_duplicate_state	= drm_atomic_helper_bridge_duplicate_state,
+	.atomic_destroy_state	= drm_atomic_helper_bridge_destroy_state,
+	.atomic_reset		= drm_atomic_helper_bridge_reset,
+	.atomic_enable		= sun6i_dsi_bridge_atomic_enable,
+	.atomic_disable		= sun6i_dsi_bridge_atomic_disable,
+	.attach			= sun6i_dsi_bridge_attach,
 };
 
 static u32 sun6i_dsi_dcs_build_pkt_hdr(struct sun6i_dsi *dsi,
