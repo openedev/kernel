@@ -1162,6 +1162,10 @@
 	status = "okay";
 };
 
+&rockchip_suspend {
+	status = "okay";
+};
+
 &can1 {
 	assigned-clocks = <&cru CLK_CAN1>;
 	assigned-clock-rates = <100000000>;

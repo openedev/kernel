@@ -772,6 +772,10 @@
 	status = "okay";
 };
 
+&rockchip_suspend {
+	status = "okay";
+};
+
 &pinctrl {
 	pmic {
 		pmic_int: pmic_int {
