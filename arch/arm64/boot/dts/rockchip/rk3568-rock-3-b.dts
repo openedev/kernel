@@ -6,7 +6,7 @@
 #include <dt-bindings/display/drm_mipi_dsi.h>
 #include <dt-bindings/sensor-dev.h>
 #include "rk3568.dtsi"
-
+#include "rock-3b-radxa-5inch-touchscreen.dtsi"
 
 / {
 	model = "Radxa ROCK 3 Model B";
