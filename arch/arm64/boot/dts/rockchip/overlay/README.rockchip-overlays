@@ -28,6 +28,7 @@ Add optional parameters with their values to /boot/uEnv.txt if you want to chang
 
 - radxa-5inch-touchscreen-on-rock-3a
 - radxa-5inch-touchscreen-on-rock-3b
+- radxa-cm3-io-sharp-lq133t1jw01-without-hdmi
 - rk3568-can1-m0 rk3568-can1-m1
 - rk3568-i2c2-m0 rk3568-i2c3-m0
 - rk3568-pwm1-m0 rk3568-pwm1-m1 rk3568-pwm2-m0 rk3568-pwm2-m1 rk3568-pwm8-m0-fan rk3568-pwm9-m0 rk3568-pwm12-m0
@@ -56,6 +57,14 @@ Activates Radxa 5inch Touchscreen on ROCK 3B
 Usage: Add the item "radxa-5inch-touchscreen-on-rock-3b" to "overlays=" line in /boot/uEnv.txt.
 
 overlays=radxa-5inch-touchscreen-on-rock-3b
+
+#### radxa-cm3-io-sharp-lq133t1jw01-without-hdmi
+
+Activates Radxa CM3 IO Sharp LQ133T1JW01 EDP LCD
+
+Usage: Add the item "radxa-cm3-io-sharp-lq133t1jw01-without-hdmi" to "overlays=" line in /boot/uEnv.txt.
+
+overlays=radxa-cm3-io-sharp-lq133t1jw01-without-hdmi
 
 #### rk3568-can1-m0
 
@@ -382,3 +391,7 @@ By default ROCK 3B enables HDMI only with resolution 4096x2160 (max).
 With this dtbo, both HDMI and eDP work.
 Sharp LQ133T1JW01 EDP LCD resolution is 2560x1440.
 And HDMI resolution is 1920x1080 (max).
+
+Usage: Add the item "rock-3b-hdmi-and-sharp-lq133t1jw01-edp-lcd" to "overlays=" line in /boot/uEnv.txt.
+
+overlays=rock-3b-hdmi-and-sharp-lq133t1jw01-edp-lcd
