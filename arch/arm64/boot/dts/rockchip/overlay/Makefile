@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: GPL-2.0
 dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
+	cm3-io-sata.dtbo \
 	radxa-5inch-touchscreen-on-rock-3a.dtbo \
 	radxa-5inch-touchscreen-on-rock-3b.dtbo \
 	rk3568-can1-m0.dtbo \
@@ -35,7 +36,7 @@ dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
 	rk3568-uart8-m1.dtbo \
 	rk3568-uart9-m1.dtbo \
 	rk3568-w1-gpio.dtbo \
-	cm3-io-sata.dtbo
+	rock-3b-hdmi-and-sharp-lq133t1jw01-edp-lcd.dtbo
 
 scr-$(CONFIG_ARCH_ROCKCHIP) += \
 	rockchip-fixup.scr
