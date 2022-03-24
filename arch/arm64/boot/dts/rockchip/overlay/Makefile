@@ -37,7 +37,8 @@ dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
 	rk3568-uart8-m1.dtbo \
 	rk3568-uart9-m1.dtbo \
 	rk3568-w1-gpio.dtbo \
-	rock-3b-hdmi-and-sharp-lq133t1jw01-edp-lcd.dtbo
+	rock-3b-hdmi-and-sharp-lq133t1jw01-edp-lcd.dtbo \
+	rock-3b-radxa-10p1inch-display.dtbo
 
 scr-$(CONFIG_ARCH_ROCKCHIP) += \
 	rockchip-fixup.scr

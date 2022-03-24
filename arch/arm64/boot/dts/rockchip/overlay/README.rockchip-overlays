@@ -41,6 +41,7 @@ Add optional parameters with their values to /boot/uEnv.txt if you want to chang
 - rk3568-rock-3b-sata2
 - rk3568-disable-npu
 - rock-3b-hdmi-and-sharp-lq133t1jw01-edp-lcd
+- rock-3b-radxa-10p1inch-display
 
 #### radxa-5inch-touchscreen-on-rock-3a
 
@@ -395,3 +396,13 @@ And HDMI resolution is 1920x1080 (max).
 Usage: Add the item "rock-3b-hdmi-and-sharp-lq133t1jw01-edp-lcd" to "overlays=" line in /boot/uEnv.txt.
 
 overlays=rock-3b-hdmi-and-sharp-lq133t1jw01-edp-lcd
+
+#### rock-3b-radxa-10p1inch-display
+
+Activates Radxa 10.1 inch display on ROCK 3B
+
+Radxa 10.1 inch display resolution is 1280x800p60.
+
+Usage: Add the item "rock-3b-radxa-10p1inch-display" to "overlays=" line in /boot/uEnv.txt.
+
+overlays=rock-3b-radxa-10p1inch-display

@@ -8,6 +8,7 @@
 #include "rk3568.dtsi"
 #include "rock-3b-radxa-5inch-touchscreen.dtsi"
 #include "rock-3b-sharp-lq133t1jw01-edp-lcd.dtsi"
+#include "rock-3b-radxa-10p1inch-display.dtsi"
 
 / {
 	model = "Radxa ROCK 3 Model B";
