@@ -28,6 +28,7 @@ Add optional parameters with their values to /boot/uEnv.txt if you want to chang
 
 - radxa-5inch-touchscreen-on-rock-3a
 - radxa-5inch-touchscreen-on-rock-3b
+- radxa-cm3-io-radxa-10p1inch-display
 - radxa-cm3-io-sharp-lq133t1jw01-without-hdmi
 - rk3568-can1-m0 rk3568-can1-m1
 - rk3568-i2c2-m0 rk3568-i2c3-m0
@@ -58,6 +59,14 @@ Activates Radxa 5inch Touchscreen on ROCK 3B
 Usage: Add the item "radxa-5inch-touchscreen-on-rock-3b" to "overlays=" line in /boot/uEnv.txt.
 
 overlays=radxa-5inch-touchscreen-on-rock-3b
+
+#### radxa-cm3-io-radxa-10p1inch-display
+
+Activates Radxa 10.1 inch Display on Radxa CM3 IO
+
+Usage: Add the item "radxa-cm3-io-radxa-10p1inch-display" to "overlays=" line in /boot/uEnv.txt.
+
+overlays=radxa-cm3-io-radxa-10p1inch-display
 
 #### radxa-cm3-io-sharp-lq133t1jw01-without-hdmi
 
