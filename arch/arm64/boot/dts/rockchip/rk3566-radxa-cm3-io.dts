@@ -10,6 +10,7 @@
 #include "rk3566-radxa-rock-3-compute-module.dtsi"
 #include "radxa-cm3-io-sharp-lq133t1jw01-edp-lcd.dtsi"
 #include "radxa-cm3-io-radxa-10p1inch-display.dtsi"
+#include "radxa-cm3-io-mipi-lcd-hd101boe9365.dtsi"
 
 / {
 	model = "Radxa CM3 IO";
