@@ -41,6 +41,7 @@ struct samsung_dsim_driver_data {
 	unsigned int wait_for_reset;
 	unsigned int num_bits_resol;
 	const unsigned int *reg_values;
+	bool platform_init;
 };
 
 struct samsung_dsim_host_ops {
