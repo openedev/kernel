@@ -29,6 +29,7 @@ Add optional parameters with their values to /boot/uEnv.txt if you want to chang
 - radxa-5inch-touchscreen-on-rock-3a
 - radxa-5inch-touchscreen-on-rock-3b
 - radxa-cm3-io-hd101boe9365-display
+- radxa-cm3-io-i2c0-hym8563
 - radxa-cm3-io-radxa-10p1inch-display
 - radxa-cm3-io-sharp-lq133t1jw01-without-hdmi
 - rk3568-can1-m0 rk3568-can1-m1
@@ -68,6 +69,14 @@ Activates HD101BOE9365 Display on Radxa CM3 IO
 Usage: Add the item "radxa-cm3-io-hd101boe9365-display" to "overlays=" line in /boot/uEnv.txt.
 
 overlays=radxa-cm3-io-hd101boe9365-display
+
+#### radxa-cm3-io-i2c0-hym8563
+
+Activates hym8563 on I2C Bus 0 on Radxa CM3 IO
+
+Usage: Add the item "radxa-cm3-io-i2c0-hym8563" to "overlays=" line in /boot/uEnv.txt.
+
+overlays=radxa-cm3-io-i2c0-hym8563
 
 #### radxa-cm3-io-radxa-10p1inch-display
 
