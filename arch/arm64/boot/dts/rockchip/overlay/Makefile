@@ -9,6 +9,7 @@ dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
 	radxa-cm3-io-sharp-lq133t1jw01-without-hdmi.dtbo \
 	rk3568-can1-m0.dtbo \
 	rk3568-can1-m1.dtbo \
+	rk3568-disable-gmac1.dtbo \
 	rk3568-disable-npu.dtbo \
 	rk3568-fiq-debugger-uart0.dtbo \
 	rk3568-fiq-debugger-uart2m0.dtbo \

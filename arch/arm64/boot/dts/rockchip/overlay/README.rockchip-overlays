@@ -461,7 +461,7 @@ The baud rate is 1500000n8
 
 Activates rock 3b sata2
 
-Usage: Add the item "rk3568-rock-3b-sata2" line in /boot/uEnv.txt.
+Usage: Add the item "rk3568-rock-3b-sata2" to "overlays=" line in /boot/uEnv.txt.
 
 overlays=rk3568-rock-3b-sata2
 
@@ -469,7 +469,7 @@ overlays=rk3568-rock-3b-sata2
 
 Activates em05-modem
 
-Usage: Add the item "rk3568-rock-3b-em05-modem" line in /boot/uEnv.txt.
+Usage: Add the item "rk3568-rock-3b-em05-modem" to "overlays=" line in /boot/uEnv.txt.
 
 overlays=rk3568-rock-3b-em05-modem
 
@@ -477,15 +477,23 @@ overlays=rk3568-rock-3b-em05-modem
 
 Activates radxa cm3 io sata1 sata2
 
-Usage: Add the item "cm3-io-sata" line in /boot/uEnv.txt.
+Usage: Add the item "cm3-io-sata" to "overlays=" line in /boot/uEnv.txt.
 
 overlays=cm3-io-sata
 
+#### rk3568-disable-gmac1
+
+Disable RK3566/RK3568 gmac1
+
+Usage: Add the item "rk3568-disable-gmac1" to "overlays=" line in /boot/uEnv.txt.
+
+overlays=rk3568-disable-gmac1
+
 #### rk3568-disable-npu
 
-Disable RK3566/RK3566 npu
+Disable RK3566/RK3568 npu
 
-Usage: Add the item "rk3568-disable-npu" line in /boot/uEnv.txt.
+Usage: Add the item "rk3568-disable-npu" to "overlays=" line in /boot/uEnv.txt.
 
 overlays=rk3568-disable-npu
 
