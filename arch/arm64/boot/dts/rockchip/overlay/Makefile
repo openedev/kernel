@@ -10,7 +10,13 @@ dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
 	rk3568-can1-m0.dtbo \
 	rk3568-can1-m1.dtbo \
 	rk3568-disable-npu.dtbo \
+	rk3568-fiq-debugger-uart0.dtbo \
 	rk3568-fiq-debugger-uart2m0.dtbo \
+	rk3568-fiq-debugger-uart3m0.dtbo \
+	rk3568-fiq-debugger-uart5m1.dtbo \
+	rk3568-fiq-debugger-uart7m1.dtbo \
+	rk3568-fiq-debugger-uart8m1.dtbo \
+	rk3568-fiq-debugger-uart9m1.dtbo \
 	rk3568-i2c2-m0.dtbo \
 	rk3568-i2c3-m0.dtbo \
 	rk3568-pwm12-m0.dtbo \
