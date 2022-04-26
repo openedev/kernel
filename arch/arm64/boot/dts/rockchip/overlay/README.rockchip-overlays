@@ -497,6 +497,14 @@ Usage: Add the item "rk3568-disable-npu" to "overlays=" line in /boot/uEnv.txt.
 
 overlays=rk3568-disable-npu
 
+#### rock-3b-disable-hdmicec
+
+Disable HDMI-CEC function when using GPIO4_D1 or SPI3_CS1_M1
+
+Usage: Add the item "rock-3b-disable-hdmicec" to "overlays=" line in /boot/uEnv.txt.
+
+overlays=rock-3b-disable-hdmicec
+
 #### rock-3b-hdmi-and-sharp-lq133t1jw01-edp-lcd
 
 Activates ROCK 3B HDMI and Sharp LQ133T1JW01 EDP LCD
