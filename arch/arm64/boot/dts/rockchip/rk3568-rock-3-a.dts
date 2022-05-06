@@ -636,6 +636,15 @@
 &i2c5 {
 	status = "okay";	
 	pinctrl-0 = <&i2c5m0_xfer>;
+
+	hym8563: hym8563@51 {
+		compatible = "haoyu,hym8563";
+		status = "okay";
+		reg = <0x51>;
+		#clock-cells = <0>;
+		clock-frequency = <32768>;
+		clock-output-names = "hym8563";
+	};
 };
 
 &i2s0_8ch {
