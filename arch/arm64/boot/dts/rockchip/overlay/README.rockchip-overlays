@@ -44,6 +44,7 @@ Add optional parameters with their values to /boot/uEnv.txt if you want to chang
 - rk3568-rock-3b-em05-medom
 - rk3568-rock-3b-sata2
 - rk3568-disable-npu
+- rock-3ab-rpi-camera-v1p3-ov5647
 - rock-3b-hdmi-and-sharp-lq133t1jw01-edp-lcd
 - rock-3b-radxa-10p1inch-display
 
@@ -496,6 +497,14 @@ Disable RK3566/RK3568 npu
 Usage: Add the item "rk3568-disable-npu" to "overlays=" line in /boot/uEnv.txt.
 
 overlays=rk3568-disable-npu
+
+#### rock-3ab-rpi-camera-v1p3-ov5647
+
+Activates rpi camera v1.3 ov5647 on rock3a and rock3b
+
+Usage: Add the item "rock-3ab-rpi-camera-v1p3-ov5647" to "overlays=" line in /boot/uEnv.txt.
+
+overlays=rock-3ab-rpi-camera-v1p3-ov5647
 
 #### rock-3b-disable-hdmicec
 
