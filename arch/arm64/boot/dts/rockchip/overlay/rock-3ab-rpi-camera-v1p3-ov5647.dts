@@ -5,7 +5,7 @@
 	compatible = "rockchip,rk3568";
 
 	fragment@0 {
-		target = <&vcc_camera_ov5647>;
+		target = <&ext_cam_clk>;
 
 		__overlay__ {
 			status = "okay";

@@ -252,7 +252,7 @@ overlays=rk3568-pwm15-m1
 
 Activates SPI3 M0 (/dev/spidev3.0)
 
-SPI3 M1 pins: SPI3_CS0_M0,  SPI3_CLK_M0,  SPI3_MOSI_M0,  SPI3_MISO_M0
+SPI3 M0 pins: SPI3_CS0_M0,  SPI3_CLK_M0,  SPI3_MOSI_M0,  SPI3_MISO_M0
 
 Usage: Add the item "rk3568-spi3-m0-cs0-spidev" to "overlays=" line in /boot/uEnv.txt.
 
