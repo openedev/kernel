@@ -237,7 +237,7 @@
 		status = "okay";
 	};
 
-	wireless_bluetooth: wireless-bluetooth {
+	bt_uart8: wireless_bluetooth: wireless-bluetooth {
 		compatible = "bluetooth-platdata";
 		clocks = <&rk809 1>;
 		clock-names = "ext_clock";
