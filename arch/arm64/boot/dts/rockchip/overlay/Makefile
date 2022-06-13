@@ -3,6 +3,7 @@ dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
 	cm3-io-sata.dtbo \
 	radxa-5inch-touchscreen-on-rock-3a.dtbo \
 	radxa-5inch-touchscreen-on-rock-3b.dtbo \
+	radxa-cm3-io-dual-cameras-gc2053.dtbo \
 	radxa-cm3-io-hd101boe9365-display.dtbo \
 	radxa-cm3-io-i2c0-hym8563.dtbo \
 	radxa-cm3-io-radxa-10p1inch-display.dtbo \
