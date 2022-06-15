@@ -24,7 +24,7 @@
 		regulator-name = "vcc5v0_otg";
 	};
 
-	pcie30_3v3: gpio-regulator {
+	pcie30_3v3: pcie30-3v3 {
 		compatible = "regulator-gpio";
 		regulator-name = "pcie30_3v3";
 		regulator-min-microvolt = <100000>;
@@ -35,13 +35,36 @@
 			  3300000 0x1>;
 	};
 
-	vcc3v3_pci: vcc3v3-pci-regulator {
+	vcc3v3_minipcie: vcc3v3-minipcie {
 		compatible = "regulator-fixed";
 		enable-active-high;
 		gpio = <&gpio3 RK_PA7 GPIO_ACTIVE_HIGH>;
 		pinctrl-names = "default";
-		pinctrl-0 = <&vcc3v3_pci_en>;
-		regulator-name = "vcc3v3_pci";
+		pinctrl-0 = <&vcc3v3_minipcie_en>;
+		regulator-name = "vcc3v3_minipcie";
+		regulator-always-on;
+		regulator-boot-on;
+	};
+
+	//low:wifi,high:5G
+	vcc3v3_minipcie_to_5g_or_wifi: vcc3v3-minipcie-to-5g-or-wifi {
+		compatible = "regulator-fixed";
+		enable-active-low;
+		gpio = <&gpio3 RK_PA0 GPIO_ACTIVE_LOW>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&vcc3v3_minipcie_to_5g_or_wifi_en>;
+		regulator-name = "vcc3v3_minipcie_to_5g_or_wifi";
+		regulator-always-on;
+		regulator-boot-on;
+	};
+
+	vcc3v3_pcie_30x1: vcc3v3-pci-30x1 {
+		compatible = "regulator-fixed";
+		enable-active-high;
+		gpio = <&gpio0 RK_PC5 GPIO_ACTIVE_HIGH>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&vcc3v3_pcie_30x1_en>;
+		regulator-name = "vcc3v3_pci_30x1";
 		regulator-always-on;
 		regulator-boot-on;
 	};
@@ -86,7 +109,7 @@
 	vqmmc-supply = <&vccio_sd>;
 	pinctrl-names = "default";
 	pinctrl-0 = <&sdmmc0_bus4 &sdmmc0_clk &sdmmc0_cmd>;
-	cd-gpios = <&gpio3 10 GPIO_ACTIVE_LOW>;
+	cd-gpios = <&gpio0 4 GPIO_ACTIVE_LOW>;
 	status = "okay";
 };
 
@@ -186,10 +209,6 @@
 };
 
 &sata1 {
-	//compatible = "snps,dwc-ahci";
-	//phy-names = "sata-phy“;
-	//assigned-clock-rates = <24000000>;
-	//pinctrl-0 = <&sata_pm_reset>;
 	status = "okay";
 };
 
@@ -250,8 +269,16 @@
 	};
 
 	pci-en {
-		vcc3v3_pci_en: vcc3v3-pci-en {
+		vcc3v3_minipcie_en: vcc3v3-minipcie-en {
 			rockchip,pins = <3 RK_PA7 RK_FUNC_GPIO &pcfg_pull_none>;
+		};
+
+		vcc3v3_pcie_30x1_en: vcc3v3-pcie-30x1-en {
+			rockchip,pins = <0 RK_PC5 RK_FUNC_GPIO &pcfg_pull_none>;
+		};
+
+		vcc3v3_minipcie_to_5g_or_wifi_en: vcc3v3-minipcie-to-5g-or-wifi-en {
+			rockchip,pins = <3 RK_PA0 RK_FUNC_GPIO &pcfg_pull_none>;
 		};
 	};
 
