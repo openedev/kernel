@@ -145,6 +145,23 @@ Usage: Add the item "rk3568-i2c3-m0" to "overlays=" line in /boot/uEnv.txt.
 
 overlays=rk3568-i2c3-m0
 
+#### rk3568-pwm0-m0
+
+Activates PWM0_M0
+
+Usage: Add the item "rk3568-pwm0-m0" to "overlays=" line in /boot/uEnv.txt.
+
+overlays=rk3568-pwm0-m0
+
+#### rk3568-pwm0-m1
+
+Activates PWM0_M1
+
+Usage: Add the item "rk3568-pwm0-m1" to "overlays=" line in /boot/uEnv.txt.
+
+overlays=rk3568-pwm0-m1
+
+
 #### rk3568-pwm1-m0
 
 Activates PWM1_M0

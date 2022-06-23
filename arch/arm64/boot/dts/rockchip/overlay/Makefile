@@ -29,6 +29,8 @@ dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
 	rk3568-pwm14-m1.dtbo \
 	rk3568-pwm15-m0.dtbo \
 	rk3568-pwm15-m1.dtbo \
+	rk3568-pwm0-m0.dtbo \
+	rk3568-pwm0-m1.dtbo \
 	rk3568-pwm1-m0.dtbo \
 	rk3568-pwm1-m1.dtbo \
 	rk3568-pwm2-m0.dtbo \
