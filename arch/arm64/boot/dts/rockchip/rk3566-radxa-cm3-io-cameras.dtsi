@@ -36,10 +36,10 @@
 };
 
 &i2c0 {
-	gc2053_1: gc2053-1@37 {
+	gc2053_1: gc2053-1@3f {
 		status = "disabled";
 		compatible = "galaxycore,gc2053";
-		reg = <0x37>;
+		reg = <0x3f>;
 		clocks = <&cru CLK_CAM0_OUT>;
 		clock-names = "xvclk";
 		power-domains = <&power RK3568_PD_VI>;
