@@ -84,6 +84,17 @@ config DRM_FSL_LDB
 	help
 	  Support for i.MX8MP DPI-to-LVDS on-SoC encoder.
 
+config DRM_ITE_IT6161
+       tristate "ITE IT6161 MIPI DSI to HDMI Out bridge"
+       depends on OF
+       select DRM_KMS_HELPER
+       select REGMAP_I2C
+       select DRM_MIPI_DSI
+       help
+         Driver for ITE IT6161 MIPI DSI to HDMI Out bridge.
+         IT6161 convert MIPI DSI and I2S to HDMI Out signals.
+         Please say Y if you have such hardware.
+
 config DRM_ITE_IT6505
         tristate "ITE IT6505 DisplayPort bridge"
         depends on OF
