@@ -1,7 +1,7 @@
-// SPDX-License-Identifier: GPL-2.0
 ///*****************************************
 //  Copyright (C) 2009-2019
 //  ITE Tech. Inc. All Rights Reserved
+//  Proprietary and Confidential
 ///*****************************************
 //   @file   <mipi_rx.h>
 //   @author Pet.Weng@ite.com.tw
@@ -93,7 +93,7 @@
 // #define MPPHYMCLKOInv FALSE//int MPPHYMCLKOInv = FALSE;
 
 #define InvPCLK FALSE//int InvPCLK = FALSE;
-//#define MPLaneNum (MIPIRX_LANE_NUM - 1)//3//int MPLaneNum = 3;   // 0: 1-lane, 1: 2-lane, 2: 3-lane, 3: 4-lane
+#define MPLaneNum (MIPIRX_LANE_NUM - 1)//3//int MPLaneNum = 3;   // 0: 1-lane, 1: 2-lane, 2: 3-lane, 3: 4-lane
 // int MPPCLKSel = AUTO;
 // #define EnMPx1PCLK FALSE//int EnMPx1PCLK = FALSE;//FALSE;  // FALSE: 3/4(for 4 Lane) , 3/2(for 2 Lane) , 3(for 1 Lane) PCLK
                          // TRUE : 1  (for 4 Lane) , 2  (for 2 Lane) , 4(for 1 Lane) PCLK
@@ -139,7 +139,7 @@
 #define EOTPSel 0//int EOTPSel = 0;   //0~15
 
 // PPS option
-#define EnMBPM FALSE//FALSE//int EnMBPM = FALSE;	// enable MIPI Bypass Mode
+#define EnMBPM TRUE//FALSE//int EnMBPM = FALSE;	// enable MIPI Bypass Mode
 #if (EnMBPM == TRUE)
 #define PREC_Update TRUE//int PREC_Update = FALSE;	// enable P-timing update
 #define MREC_Update TRUE//int MREC_Update = FALSE;	// enable M-timing update

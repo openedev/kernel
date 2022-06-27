@@ -1,22 +1,11 @@
-// SPDX-License-Identifier: GPL-2.0
-///*****************************************
-//  Copyright (C) 2009-2019
-//  ITE Tech. Inc. All Rights Reserved
-///*****************************************
-//   @file   <hdmitx_sys.h>
-//   @author Jau-Chih.Tseng@ite.com.tw
-//   @date   2019/02/15
-//   @fileversion: IT6161_SAMPLE_0.50
-//******************************************/
-
 typedef enum _SYS_STATUS {
     ER_SUCCESS = 0,
     ER_FAIL,
     ER_RESERVED
 } SYS_STATUS ;
     
-//#define FALSE 0
-//#define TRUE 1
+#define FALSE (0)
+#define TRUE (1)
 #ifndef NULL
     #define NULL ((void *) 0)
 #endif
@@ -181,7 +170,7 @@ typedef union _Audio_InfoFrame {
     struct {
         u8 AUD_HB[3];
         u8 checksum ;
-        u8 AUD_DB[10];
+        u8 AUD_DB[5];
     } pktbyte;
 
 } Audio_InfoFrame;
@@ -484,7 +473,7 @@ typedef struct {
 //////////////////////////////////////////////////////////////////////////////////////////
 // MIPI Rx Configuration
 //////////////////////////////////////////////////////////////////////////////////////////
-#define MIPIRX_LANE_NUM		4 //1~4
+#define MIPIRX_LANE_NUM     4 //1~4
 
 #endif
 
@@ -1266,7 +1255,7 @@ typedef enum {
 } VIDEOPCLKLEVEL ;
 
 u8 CheckHDMITX(u8 *pHPD,u8 *pHPDChange);
-static bool getHDMITX_LinkStatus(void);
+bool getHDMITX_LinkStatus(void);
 void HDMITX_PowerDown(void);
 bool HDMITX_EnableVideoOutput(VIDEOPCLKLEVEL level,u8 inputColorMode,u8 outputColorMode,u8 bHDMI);
 bool setHDMITX_VideoSignalType(u8 inputSignalType);
@@ -1318,6 +1307,17 @@ SYS_STATUS HDMITX_ToggleBit(u8 Reg,u8 n);*/
 
 
 #endif // _HDMITX_DRV_H_
+
+///*****************************************
+//  Copyright (C) 2009-2019
+//  ITE Tech. Inc. All Rights Reserved
+//  Proprietary and Confidential
+///*****************************************
+//   @file   <hdmitx_sys.h>
+//   @author Jau-Chih.Tseng@ite.com.tw
+//   @date   2019/02/15
+//   @fileversion: IT6161_SAMPLE_0.50
+//******************************************/
 
 #ifndef _HDMITX_SYS_H_
 #define _HDMITX_SYS_H_
@@ -1621,7 +1621,7 @@ void HDMITX_DevLoopProc(void);
 ////////////////////////////////////////////////////
 
 //SYS_STATUS hdmitx_hdcp_VerifyIntegration();
-//static SYS_STATUS hdmitx_hdcp_CheckSHA(u8 pM0[],u16 BStatus,u8 pKSVList[],int cDownStream,u8 Vr[]);
+SYS_STATUS hdmitx_hdcp_CheckSHA(u8 pM0[],u16 BStatus,u8 pKSVList[],int cDownStream,u8 Vr[]);
 #endif // _HDMITX_HDCP_H_
 
 
