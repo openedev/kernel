@@ -93,7 +93,6 @@
 // #define MPPHYMCLKOInv FALSE//int MPPHYMCLKOInv = FALSE;
 
 #define InvPCLK FALSE//int InvPCLK = FALSE;
-#define MPLaneNum (MIPIRX_LANE_NUM - 1)//3//int MPLaneNum = 3;   // 0: 1-lane, 1: 2-lane, 2: 3-lane, 3: 4-lane
 // int MPPCLKSel = AUTO;
 // #define EnMPx1PCLK FALSE//int EnMPx1PCLK = FALSE;//FALSE;  // FALSE: 3/4(for 4 Lane) , 3/2(for 2 Lane) , 3(for 1 Lane) PCLK
                          // TRUE : 1  (for 4 Lane) , 2  (for 2 Lane) , 4(for 1 Lane) PCLK

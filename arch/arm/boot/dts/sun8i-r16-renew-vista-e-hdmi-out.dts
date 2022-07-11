@@ -234,8 +234,9 @@
 
 	bridge@6c {
 		compatible = "ite,it6161";
-		reg = <0x6c>, <0x4c>;
-		reg-names = "mipi-rx", "it6161-addr-hdmi-tx";
+		reg = <0x6c>;
+		it6161-addr-hdmi-tx = <0x4C>;
+		it6161-addr-cec = <0x4E>;
 		ivdd-supply = <&reg_eldo1>; /* IVDD12: D+1V2_HDMI */
                 ovdd-supply = <&reg_dldo1>; /* OVDD33: D+3V3_MAIN */
                 ovdd18-supply = <&reg_dldo1>; /* OVDD1833: D+3V3_MAIN */
