@@ -15,8 +15,8 @@
 #include "rk3566.dtsi"
 
 / {
-	model = "Radxa ROCK 3 Model C";
-	compatible = "radxa,rock-3c", "rockchip,rk3566";
+	model = "Radxa ROCK3 Model C";
+	compatible = "radxa,rock3c", "rockchip,rk3566";
 
 	fiq-debugger {
 		compatible = "rockchip,fiq-debugger";
