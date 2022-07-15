@@ -467,12 +467,6 @@ static bool space_cache_v1_done(struct btrfs_block_group *cache)
 	return ret;
 }
 
-void btrfs_wait_space_cache_v1_finished(struct btrfs_block_group *cache,
-				struct btrfs_caching_control *caching_ctl)
-{
-	wait_event(caching_ctl->wait, space_cache_v1_done(cache));
-}
-
 #ifdef CONFIG_BTRFS_DEBUG
 static void fragment_free_space(struct btrfs_block_group *block_group)
 {
@@ -801,7 +795,7 @@ int btrfs_cache_block_group(struct btrfs_block_group *cache, int load_cache_only
 	btrfs_queue_work(fs_info->caching_workers, &caching_ctl->work);
 out:
 	if (load_cache_only && caching_ctl)
-		btrfs_wait_space_cache_v1_finished(cache, caching_ctl);
+		wait_event(caching_ctl->wait, space_cache_v1_done(cache));
 	if (caching_ctl)
 		btrfs_put_caching_control(caching_ctl);
 
