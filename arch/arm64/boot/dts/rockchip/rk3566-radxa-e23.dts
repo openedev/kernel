@@ -24,16 +24,16 @@
 		regulator-boot-on;
 	};
 
-	tf_det: gpio-regulator {
-		compatible = "regulator-gpio";
-		regulator-name = "tf-det";
-		regulator-min-microvolt = <0000000>;
-		regulator-max-microvolt = <0100000>;
-		gpios = <&gpio0 RK_PD4 GPIO_ACTIVE_LOW>;
-		gpios-states = <0x1>;
-		states = <0100000 0x0
-			  1800000 0x1>;
-	};
+	tf_det: tf-det-regulator {
+		compatible = "regulator-fixed";
+		enable-active-low;
+		gpio = <&gpio0 RK_PD4 GPIO_ACTIVE_LOW>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&tf_det_en>;
+		regulator-name = "tf_det";
+		regulator-always-on;
+		regulator-boot-on;
+    };
 
 	rk_headset: rk-headset {
 		compatible = "rockchip_headset";
@@ -49,8 +49,8 @@
 		pinctrl-names="default";
 		pinctrl-0=<&sdpwr_en>;
 		regulator-name="vcc_sdpwr";
-		regulator-min-microvolt=<0000000>;
-		regulator-max-microvolt=<0100000>;
+		regulator-min-microvolt=<3300000>;
+		regulator-max-microvolt=<3300000>;
 		startup-delay-us=<100000>;
 		vin-supply=<&vcc3v3_sys>;
 	};
@@ -89,7 +89,8 @@
 	cap-mmc-highspeed;
 	cap-sd-highspeed;
 	disable-wp;
-	sd-uhs-sdr104;
+	//sd-uhs-sdr104;
+	vmmc-supply = <&vcc_sdpwr>;
 	vqmmc-supply = <&vccio_sd>;
 	pinctrl-names = "default";
 	pinctrl-0 = <&sdmmc0_bus4 &sdmmc0_clk &sdmmc0_cmd &sdmmc0_det>;
@@ -181,6 +182,10 @@
 	sdcard {
 		sdpwr_en: sdpwr-en {
 			rockchip,pins = <0 RK_PA5 RK_FUNC_GPIO &pcfg_pull_none>;
+		};
+
+		tf_det_en: tf-det-en {
+			rockchip,pins = <0 RK_PD4 RK_FUNC_GPIO &pcfg_output_low>;
 		};
 	};
 
