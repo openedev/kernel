@@ -140,11 +140,11 @@
 
 &usbdrd_dwc3 {
 	extcon=<&usb2phy0>;
-	status="disabled";
+	status="okay";
 };
 
 &usbdrd30 {
-	status = "disabled";
+	status = "okay";
 };
 
 &usbhost_dwc3 {
