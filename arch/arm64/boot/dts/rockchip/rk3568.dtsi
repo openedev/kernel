@@ -569,6 +569,7 @@
 			snps,dis-del-phy-power-chg-quirk;
 			snps,dis-tx-ipgap-linecheck-quirk;
 			snps,xhci-trb-ent-quirk;
+			snps,usb2-lpm-disable;
 			status = "disabled";
 		};
 	};
@@ -600,6 +601,7 @@
 			snps,dis-del-phy-power-chg-quirk;
 			snps,dis-tx-ipgap-linecheck-quirk;
 			snps,xhci-trb-ent-quirk;
+			snps,usb2-lpm-disable;
 			status = "disabled";
 		};
 	};
