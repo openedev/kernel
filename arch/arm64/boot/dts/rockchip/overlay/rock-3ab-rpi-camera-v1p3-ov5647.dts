@@ -1,3 +1,4 @@
+// ROCK 3A/3B RaspberryPi Camera V1.3
 /dts-v1/;
 /plugin/;
 
@@ -78,6 +79,14 @@
 
 	fragment@9 {
 		target = <&rkcif>;
+
+		__overlay__ {
+			status = "okay";
+		};
+	};
+
+	fragment@10 {
+		target = <&vcc_camera>;
 
 		__overlay__ {
 			status = "okay";
