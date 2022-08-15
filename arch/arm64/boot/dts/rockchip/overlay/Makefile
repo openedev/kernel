@@ -37,6 +37,7 @@ dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
 	rk3568-pwm2-m1.dtbo \
 	rk3568-pwm8-m0-fan.dtbo \
 	rk3568-pwm9-m0.dtbo \
+	rock-3a-sata0.dtbo \
 	rock-3a-sata2.dtbo \
 	rk3568-rock-3b-em05-modem.dtbo \
 	rk3568-rock-3b-sata2.dtbo \

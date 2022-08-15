@@ -43,6 +43,7 @@ Add optional parameters with their values to /boot/uEnv.txt if you want to chang
 - rk3568-fiq-debugger-uart0 rk3568-fiq-debugger-uart2m0 rk3568-fiq-debugger-uart3m0 rk3568-fiq-debugger-uart5m1
 - rk3568-fiq-debugger-uart7m1 rk3568-fiq-debugger-uart8m1 rk3568-fiq-debugger-uart9m1
 - rk3568-rock-3b-em05-medom
+- rock-3a-sata0
 - rock-3a-sata2
 - rk3568-rock-3b-sata2
 - rk3568-disable-npu
@@ -492,6 +493,14 @@ Activates rock 3b sata2
 Usage: Add the item "rk3568-rock-3b-sata2" to "overlays=" line in /boot/uEnv.txt.
 
 overlays=rk3568-rock-3b-sata2
+
+#### rock-3a-sata0
+
+Activates rock 3a usb3.0 otg port to sata0
+
+Usage: Add the item "rock-3a-sata0" to "overlays=" line in /boot/uEnv.txt.
+
+overlays=rock-3a-sata0
 
 #### rock-3a-sata2
 
