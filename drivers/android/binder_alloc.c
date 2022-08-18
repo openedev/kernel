@@ -934,9 +934,12 @@ void binder_alloc_print_pages(struct seq_file *m,
 	 */
 
 	mmap_read_lock(alloc->vma_vm_mm);
-	if (binder_alloc_get_vma(alloc) == NULL)
+	if (binder_alloc_get_vma(alloc) == NULL) {
+		mmap_read_unlock(alloc->vma_vm_mm);
 		goto uninitialized;
+	}
 
+	mmap_read_unlock(alloc->vma_vm_mm);
 	for (i = 0; i < alloc->buffer_size / PAGE_SIZE; i++) {
 		page = &alloc->pages[i];
 		if (!page->page_ptr)
@@ -948,7 +951,6 @@ void binder_alloc_print_pages(struct seq_file *m,
 	}
 
 uninitialized:
-	mmap_read_unlock(alloc->vma_vm_mm);
 	mutex_unlock(&alloc->mutex);
 	seq_printf(m, "  pages: %d:%d:%d\n", active, lru, free);
 	seq_printf(m, "  pages high watermark: %zu\n", alloc->pages_high);
