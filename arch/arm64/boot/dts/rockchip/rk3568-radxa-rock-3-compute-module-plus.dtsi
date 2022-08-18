@@ -140,7 +140,7 @@
 	gpio_leds: gpio-leds {
 		compatible = "gpio-leds";
 		status = "okay";
-		user-led {
+		user_leds: user-led {
 			gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;	
 			linux,default-trigger = "timer";
 			default-state = "on";

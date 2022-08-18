@@ -261,6 +261,11 @@
 	pinctrl-0 = <&pwm12m1_pins>;
 };
 
+&user_leds {
+	linux,default-trigger = "none";
+	default-state = "off";
+};
+
 &pinctrl {
 	usb {
 		vcc5v0_otg_en: vcc5v0-otg-en {
