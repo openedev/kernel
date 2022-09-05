@@ -59,6 +59,7 @@ dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
 	rock-3b-hdmi-and-sharp-lq133t1jw01-edp-lcd.dtbo \
 	rock-3b-radxa-10p1inch-display.dtbo \
 	rock-3c-ov5647.dtbo \
+	rock-3c-radxa-5inch-touchscreen.dtbo \
 	audioinjector-isolated-soundcard.dtbo
 
 scr-$(CONFIG_ARCH_ROCKCHIP) += \
