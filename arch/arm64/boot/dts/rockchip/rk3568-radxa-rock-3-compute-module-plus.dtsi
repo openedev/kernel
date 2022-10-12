@@ -15,7 +15,7 @@
 #include "rk3568.dtsi"
 
 / {
-    compatible = "radxa,rock-3-compute-module-plus", "rockchip,rk3568";
+	compatible = "radxa,rock-3-compute-module-plus", "rockchip,rk3568";
 
 	fiq_debugger: fiq-debugger {
 		compatible = "rockchip,fiq-debugger";
@@ -478,7 +478,7 @@
 	phy-mode = "rgmii";
 	clock_in_out = "output";
 
-	snps,reset-gpio = <&gpio3 RK_PB0 GPIO_ACTIVE_LOW>;
+	snps,reset-gpio = <&gpio4 RK_PC3 GPIO_ACTIVE_LOW>;
 	snps,reset-active-low;
 	/* Reset time is 20ms, 100ms for rtl8211f */
 	snps,reset-delays-us = <0 20000 100000>;
@@ -494,18 +494,19 @@
 		     &gmac1m1_rgmii_clk
 		     &gmac1m1_rgmii_bus>;
 
-	tx_delay = <0x42>;
-	rx_delay = <0x28>;
+	tx_delay = <0x44>;
+	rx_delay = <0x26>;
 
 	phy-handle = <&rgmii_phy1>;
 	status = "disabled";
 };
 
 &mdio1 {
-    status = "disabled";
-    rgmii_phy1: phy@0 {
-        status = "disabled";
-        compatible = "ethernet-phy-ieee802.3-c22";
+	status = "disabled";
+
+	rgmii_phy1: phy@0 {
+		status = "disabled";
+		compatible = "ethernet-phy-ieee802.3-c22";
 		reg = <0x0>;
 	};
 };
