@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0
 dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
 	cm3-io-sata.dtbo \
+	radxa-5inch-touchscreen-on-cm3-sodimm-io.dtbo \
 	radxa-5inch-touchscreen-on-rock-3a.dtbo \
 	radxa-5inch-touchscreen-on-rock-3b.dtbo \
 	radxa-cm3-io-dual-cameras-gc2053.dtbo \

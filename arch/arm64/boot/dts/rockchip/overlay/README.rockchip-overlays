@@ -28,6 +28,7 @@ Add optional parameters with their values to /boot/uEnv.txt if you want to chang
 
 - radxa-5inch-touchscreen-on-rock-3a
 - radxa-5inch-touchscreen-on-rock-3b
+- radxa-5inch-touchscreen-on-cm3-sodimm-io
 - radxa-cm3-io-dual-cameras-gc2053
 - radxa-cm3-io-hd101boe9365-display
 - radxa-cm3-io-i2c0-hym8563
@@ -67,6 +68,14 @@ Activates Radxa 5inch Touchscreen on ROCK 3B
 Usage: Add the item "radxa-5inch-touchscreen-on-rock-3b" to "overlays=" line in /boot/uEnv.txt.
 
 overlays=radxa-5inch-touchscreen-on-rock-3b
+
+#### radxa-5inch-touchscreen-on-cm3-sodimm-io
+
+Activates Radxa 5inch Touchscreen on ROCK CM3 SODIMM IO
+
+Usage: Add the item "radxa-5inch-touchscreen-on-cm3-sodimm-io" to "overlays=" line in /boot/uEnv.txt.
+
+overlays=radxa-5inch-touchscreen-on-cm3-sidomm-io
 
 #### radxa-cm3-io-dual-cameras-gc2053
 
