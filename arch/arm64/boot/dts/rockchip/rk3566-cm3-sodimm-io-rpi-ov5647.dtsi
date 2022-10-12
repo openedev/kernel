@@ -1,0 +1,210 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright (c) 2022 Radxa Limited.
+ *
+ */
+
+ / {
+	compatible = "radxa,radxa-cm3-io", "rockchip,rk3566";
+
+	ext_cam_ov5647_clk: external-camera-ov5647-clock {
+		status = "disabled";
+		compatible = "fixed-clock";
+		clock-frequency = <25000000>;
+		clock-output-names = "ext_cam_ov5647_clk";
+		#clock-cells = <0>;
+	};
+};
+
+
+&i2c2 {
+	status = "disabled";
+	pinctrl-names = "default";
+	pinctrl-0 = <&i2c2m1_xfer>;
+	//clock-frequency = <100000>;
+
+	ov5647_1: ov5647-1@36 {
+		status = "disabled";
+		compatible = "ovti,ov5647";
+		reg = <0x36>;
+
+		clocks = <&ext_cam_ov5647_clk>;
+		clock-names = "ext_cam_ov5647_clk";
+
+		// clocks = <&cru CLK_CAM0_OUT>;
+		// clock-names = "xvclk";
+		// power-domains = <&power RK3568_PD_VI>;
+		// pinctrl-names = "default";
+		// pinctrl-0 = <&cam_clkout0>;
+
+		// clocks = <&cru CLK_CIF_OUT>;
+                // clock-names = "xvclk";
+                // power-domains = <&power RK3568_PD_VI>;
+                // pinctrl-names = "default";
+                // pinctrl-0 = <&cif_clk>;
+
+		pwdn-gpios = <&gpio3 RK_PD7 GPIO_ACTIVE_LOW>;
+
+		port {
+			ov5647_1_out: endpoint {
+				// csi2 dphy端的port名
+				remote-endpoint = <&csi2dphy1_ucam0>;
+				data-lanes = <1 2>;
+			};
+		};
+	};
+};
+
+&i2c3 {
+	status = "disabled";
+	pinctrl-names = "default";
+	pinctrl-0 = <&i2c3m0_xfer>;
+	//clock-frequency = <100000>;
+
+	ov5647_2: ov5647-2@36 {
+		status = "disabled";
+		compatible = "ovti,ov5647";
+		reg = <0x36>;
+
+		clocks = <&ext_cam_ov5647_clk>;
+		clock-names = "ext_cam_ov5647_clk";
+
+		pwdn-gpios = <&gpio4 RK_PB6 GPIO_ACTIVE_LOW>;
+
+		port {
+			ov5647_2_out: endpoint {
+				// csi2 dphy2 端的port名
+				remote-endpoint = <&csi2dphy2_ucam0>;
+				data-lanes = <1 2>;
+			};
+		};
+	};
+};
+
+&csi2_dphy_hw {
+	status = "disabled";
+};
+
+&csi2_dphy0 {
+	status = "disabled";
+};
+
+&csi2_dphy1 {
+	status = "disabled";
+
+	/*
+	 * dphy1 only used for split mode,
+	 * can be used  concurrently  with dphy2
+	 * full mode and split mode are mutually exclusive
+	 */
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		port@0 {
+			reg = <0>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			csi2dphy1_ucam0: endpoint@1 {
+				reg = <1>;
+				remote-endpoint = <&ov5647_1_out>;
+				data-lanes = <1 2>;
+			};
+		};
+
+		port@1 {
+			reg = <1>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			csi2dphy1_out: endpoint@1 {
+				reg = <1>;
+				remote-endpoint = <&isp0_in>;
+			};
+		};
+	};
+};
+
+&csi2_dphy2 {
+	status = "disabled";
+
+	/*
+	 * dphy2 only used for split mode,
+	 * can be used  concurrently  with dphy1
+	 * full mode and split mode are mutually exclusive
+	 */
+	ports {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		port@0 {
+			reg = <0>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			csi2dphy2_ucam0: endpoint@1 {
+				reg = <1>;
+				remote-endpoint = <&ov5647_2_out>;
+				data-lanes = <1 2>;
+			};
+		};
+
+		port@1 {
+			reg = <1>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			csi2dphy2_out: endpoint@1 {
+				reg = <1>;
+				remote-endpoint = <&isp1_in>;
+			};
+		};
+	};
+};
+
+&rkisp {
+	status = "disabled";
+};
+
+&rkisp_mmu {
+	status = "disabled";
+};
+
+&rkisp_vir0 {
+	status = "disabled";
+
+	port {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		isp0_in: endpoint@0 {
+			reg = <0>;
+			remote-endpoint = <&csi2dphy1_out>;
+		};
+	};
+};
+
+&rkisp_vir1 {
+	status = "disabled";
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	port {
+		reg = <0>;
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		isp1_in: endpoint@0 {
+			reg = <0>;
+			remote-endpoint = <&csi2dphy2_out>;
+		};
+	};
+};
+
+&rkcif_mmu {
+	status = "disabled";
+};
+
+&rkcif {
+	status = "disabled";
+};

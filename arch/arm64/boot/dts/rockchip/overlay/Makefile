@@ -61,6 +61,8 @@ dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
 	rock-3b-radxa-10p1inch-display.dtbo \
 	rock-3c-ov5647.dtbo \
 	rock-3c-radxa-5inch-touchscreen.dtbo \
+	rpi-ov5647-on-cm3-sodimm-io-csi0.dtbo \
+	rpi-ov5647-on-cm3-sodimm-io-csi1.dtbo \
 	audioinjector-isolated-soundcard.dtbo
 
 scr-$(CONFIG_ARCH_ROCKCHIP) += \
