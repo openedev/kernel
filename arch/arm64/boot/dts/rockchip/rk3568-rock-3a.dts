@@ -706,6 +706,7 @@
 };
 
 &rkvenc {
+	venc-supply = <&vdd_logic>;
 	status = "okay";
 };
 
