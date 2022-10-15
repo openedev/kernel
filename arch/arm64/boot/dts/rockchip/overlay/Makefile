@@ -9,6 +9,9 @@ dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
 	radxa-cm3-io-i2c0-hym8563.dtbo \
 	radxa-cm3-io-radxa-10p1inch-display.dtbo \
 	radxa-cm3-io-sharp-lq133t1jw01-without-hdmi.dtbo \
+	radxa-cm3-io-headphone.dtbo \
+	radxa-cm3-io-pcie2x1.dtbo \
+	radxa-cm3-raspcm4io-pcie2x1.dtbo \
 	rk3568-can1-m0.dtbo \
 	rk3568-can1-m1.dtbo \
 	rk3568-disable-gmac1.dtbo \

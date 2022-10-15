@@ -31,14 +31,6 @@
 		};
 	};
 
-	rk_headset: rk-headset {
-		compatible = "rockchip_headset";
-		headset_gpio = <&gpio4 RK_PC4 GPIO_ACTIVE_LOW>;
-		pinctrl-names = "default";
-		pinctrl-0 = <&hp_det>;
-		io-channels = <&saradc 2>;    //HP_HOOK引脚
-	};
-
 	vcc5v0_usb30: vcc5v0-usb30-regulator {
 		compatible = "regulator-fixed";
 		enable-active-high;
@@ -119,14 +111,6 @@
 	connect = <&vp0_out_hdmi>;
 };
 
-&rk817_sound {
-	status = "okay";
-};
-
-&i2s1_8ch {
-	status = "okay";
-};
-
 &sdmmc0 {
 	max-frequency = <150000000>;
 	supports-sd;
@@ -187,13 +171,6 @@
 };
 
 &combphy2_psq {
-	status = "okay";
-};
-
-&pcie2x1 {
-	reset-gpios = <&gpio1 RK_PB2 GPIO_ACTIVE_HIGH>;
-	vpcie3v3-supply = <&vcc3v3_sys>;
-	pinctrl-0 = <&pcie20m2_pins>;
 	status = "okay";
 };
 
