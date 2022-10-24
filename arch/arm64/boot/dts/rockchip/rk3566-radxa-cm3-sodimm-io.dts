@@ -110,6 +110,17 @@
 	status = "okay";
 };
 
+&combphy2_psq {
+	status = "okay";
+};
+
+&pcie2x1 {
+	reset-gpios = <&gpio0 RK_PC3 GPIO_ACTIVE_HIGH>;
+	vpcie3v3-supply = <&vcc3v3_sys>;
+	pinctrl-0 = <&pcie20m2_pins>;
+	status = "okay";
+};
+
 &pinctrl {
 	usb {
 		vcc5v0_usb20_en: vcc5v0-host-en {
