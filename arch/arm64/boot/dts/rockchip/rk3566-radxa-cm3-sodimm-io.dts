@@ -9,7 +9,7 @@
 
 #include <dt-bindings/display/rockchip_vop.h>
 #include "rk3566-radxa-rock-3-compute-module-sodimm.dtsi"
-#include "rk3566-rock-cm3-sodimm-io-radxa-5inch-touchscreen.dtsi"
+#include "rk3566-rock-cm3-sodimm-io-display.dtsi"
 #include "rk3566-cm3-sodimm-io-rpi-ov5647.dtsi"
 
 / {
