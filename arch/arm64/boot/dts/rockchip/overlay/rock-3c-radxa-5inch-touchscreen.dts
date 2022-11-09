@@ -25,6 +25,10 @@
 
 		__overlay__ {
 			status = "okay";
+
+			dsi1_panel: dsi-panel@0 {
+				status = "okay";
+			};
 		};
 	};
 
