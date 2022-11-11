@@ -100,7 +100,7 @@
 };
 
 &pcie2x1 {
-	reset-gpios = <&gpio0 RK_PB2 GPIO_ACTIVE_HIGH>;
+	reset-gpios = <&gpio1 RK_PB2 GPIO_ACTIVE_HIGH>;
 	vpcie3v3-supply = <&vcc3v3_sys>;
 	pinctrl-0 = <&pcie20m2_pins>;
 	status = "okay";
