@@ -78,6 +78,26 @@
 		em05,airplane-gpio = <&gpio1 RK_PA4 GPIO_ACTIVE_HIGH>;
 		status = "okay";
 	};
+
+	rgb_leds: rgb-leds {
+		compatible = "pwm-leds";
+		status = "okay";
+
+		pwm_red {
+			pwms = <&pwm1 0 1000000 0>;
+			max-brightness = <255>;
+		};
+
+		pwm_blue {
+			pwms = <&pwm12 0 1000000 0>;
+			max-brightness = <255>;
+		};
+
+		pwm_green {
+			pwms = <&pwm2 0 1000000 0>;
+			max-brightness = <255>;
+		};
+	};
 };
 
 &fiq_debugger {
