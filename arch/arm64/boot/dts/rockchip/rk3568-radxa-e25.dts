@@ -79,21 +79,21 @@
 		status = "okay";
 	};
 
-	rgb_leds: rgb-leds {
+	rgb0: rgb0 {
 		compatible = "pwm-leds";
 		status = "okay";
 
-		pwm_red {
+		rgb0-red {
 			pwms = <&pwm1 0 1000000 0>;
 			max-brightness = <255>;
 		};
 
-		pwm_blue {
+		rgb0-blue {
 			pwms = <&pwm12 0 1000000 0>;
 			max-brightness = <255>;
 		};
 
-		pwm_green {
+		rgb0-green {
 			pwms = <&pwm2 0 1000000 0>;
 			max-brightness = <255>;
 		};
