@@ -73,7 +73,8 @@ dtbo-$(CONFIG_ARCH_ROCKCHIP) += \
 	audioinjector-isolated-soundcard.dtbo \
 	rock-3c-raspberrypi-7inch-touchscreen.dtbo \
 	rk3568-spi1-m1-cs0-spidev.dtbo \
-	rk3568-spi0-m1-cs0-spidev.dtbo
+	rk3568-spi0-m1-cs0-spidev.dtbo \
+	radxa-cm3i-gmac1.dtbo
 
 scr-$(CONFIG_ARCH_ROCKCHIP) += \
 	rockchip-fixup.scr
