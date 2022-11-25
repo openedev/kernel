@@ -100,4 +100,12 @@
 			status = "okay";
 		};
 	};
+
+	fragment@12 {
+		target = <&focaltech>;
+
+		__overlay__ {
+			status = "okay";
+		};
+	};
 };
