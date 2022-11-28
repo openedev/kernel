@@ -11,8 +11,24 @@
 		status = "disabled";
 		compatible = "regulator-fixed";
 		regulator-name = "vcc_lcd_mipi1";
+		pinctrl-names = "default";
+		pinctrl-0 = <&vcc_mipi>;
 		gpio = <&gpio0 RK_PD6 GPIO_ACTIVE_HIGH>;
 		enable-active-high;
+		regulator-boot-on;
+		regulator-state-mem {
+			regulator-off-in-suspend;
+		};
+	};
+
+	vcc_lcd_tp: vcc-lcd-tp {
+		status = "disabled";
+		compatible = "regulator-fixed";
+		regulator-name = "vcc_lcd_tp";
+		pinctrl-names = "default";
+		pinctrl-0 = <&vcc_tp>;
+		gpio = <&gpio4 RK_PA1 GPIO_ACTIVE_LOW>;
+		enable-active-low;
 		regulator-boot-on;
 		regulator-state-mem {
 			regulator-off-in-suspend;
@@ -376,7 +392,34 @@
 	connect = <&vp0_out_dsi1>;
 };
 
+&i2c2 {
+	status = "disabled";
+	pinctrl-0 = <&i2c2m1_xfer>;
+
+	focaltech: focaltech@38 {
+		status = "disabled";
+		compatible = "focaltech,fts";
+		reg = <0x38>;
+		power-supply = <&vcc_lcd_tp>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&touch_gpio>;
+		focaltech,reset-gpio = <&gpio0 RK_PB4 GPIO_ACTIVE_HIGH>;
+		focaltech,irq-gpio = <&gpio0 RK_PB3 IRQ_TYPE_LEVEL_LOW>;
+		focaltech,max-touch-number = <5>;
+	};
+};
+
 &pinctrl {
+
+	lcd-vcc {
+		vcc_mipi: vcc-mipi {
+			rockchip,pins = <0 RK_PD6 RK_FUNC_GPIO &pcfg_pull_up>;
+		};
+
+		vcc_tp: vcc-tp {
+			rockchip,pins = <4 RK_PA1 RK_FUNC_GPIO &pcfg_pull_down>;
+		};
+	};
 
 	dsi1-lcd {
 		dsi1_lcd_rst_gpio: dsi1-lcd-rst-gpio {
@@ -385,6 +428,14 @@
 
 		dsi1_backlight_en: dsi1-backlight-en {
 			rockchip,pins = <3 RK_PD7 RK_FUNC_GPIO &pcfg_pull_up>;
+		};
+	};
+
+	touch {
+		touch_gpio: touch-gpio {
+			rockchip,pins =
+				<0 RK_PB4 RK_FUNC_GPIO &pcfg_pull_up>,
+				<0 RK_PB3 RK_FUNC_GPIO &pcfg_pull_none>;
 		};
 	};
 };
