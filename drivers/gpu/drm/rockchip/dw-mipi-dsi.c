@@ -981,6 +981,10 @@ static ssize_t dw_mipi_dsi_host_transfer(struct mipi_dsi_host *host,
 {
 	struct dw_mipi_dsi *dsi = host_to_dsi(host);
 
+	        DRM_INFO("%x %x %x\n", msg->type,
+                 ((((u8 *)msg->tx_buf)[0] << 8) >> 8),
+                 ((((u8 *)msg->tx_buf)[1] << 16)) >> 16);
+
 	return dw_mipi_dsi_transfer(dsi, msg);
 }
 

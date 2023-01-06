@@ -8,7 +8,6 @@
 	compatible = "radxa,radxa-cm3-io", "rockchip,rk3566";
 
 	vcc_lcd_mipi1: vcc-lcd-mipi1 {
-		status = "disabled";
 		compatible = "regulator-fixed";
 		regulator-name = "vcc_lcd_mipi1";
 		pinctrl-names = "default";
@@ -22,7 +21,6 @@
 	};
 
 	vcc_lcd_tp: vcc-lcd-tp {
-		status = "disabled";
 		compatible = "regulator-fixed";
 		regulator-name = "vcc_lcd_tp";
 		pinctrl-names = "default";
@@ -36,7 +34,6 @@
 	};
 
 	dsi1_backlight: dsi1-backlight {
-		status = "disabled";
 		compatible = "pwm-backlight";
 		pwms = <&pwm2 0 25000 0>;
 		brightness-levels = <
@@ -81,14 +78,13 @@
 };
 
 &pwm2 {
-	status = "disabled";
+	status = "okay";
 };
 
 &dsi1 {
-	status = "disabled";
+	status = "okay";
 
 	dsi1_panel: panel@0 {
-		status = "disabled";
 		compatible = "simple-panel-dsi";
 		reg = <0>;
 		backlight = <&dsi1_backlight>;
@@ -368,11 +364,11 @@
 };
 
 &video_phy1 {
-	status = "disabled";
+	status = "okay";
 };
 
 &dsi1_in_vp0 {
-	status = "disabled";
+	status = "okay";
 };
 
 &dsi1_in_vp1 {
@@ -380,7 +376,7 @@
 };
 
 &vp0_out_dsi1 {
-	status = "disabled";
+	status = "okay";
 };
 
 &vp1_out_dsi1 {
@@ -388,7 +384,7 @@
 };
 
 &route_dsi1 {
-	status = "disabled";
+	status = "okay";
 	connect = <&vp0_out_dsi1>;
 };
 
