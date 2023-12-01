@@ -528,6 +528,95 @@ static const struct bcm_subver_table bcm_usb_subver_table[] = {
 	{ }
 };
 
+static int btbcm_poke_arm32(struct hci_dev *hdev, u32 addr, u32 data)
+{
+	int err = 0;
+	struct sk_buff *skb;
+	u8 buf[10];
+
+	buf[0] = 8;
+	addr = cpu_to_le32(addr);
+	memcpy(&buf[1], &addr, 4);
+	buf[5] = 0;
+	data = cpu_to_le32(data);
+	memcpy(&buf[6], &data, 4);
+
+	skb = __hci_cmd_sync(hdev, 0xfc0c, 10, buf, HCI_INIT_TIMEOUT);
+	if (IS_ERR(skb)) {
+		err = PTR_ERR(skb);
+		bt_dev_err(hdev, "BCM: poke arm32 failed! (%d)",
+			   err);
+		goto done;
+	}
+	kfree_skb(skb);
+done:
+	return err;
+}
+
+static int btbcm_write_ram(struct hci_dev *hdev, u32 addr, const u8 * data, u32 count)
+{
+	int err = 0;
+	struct sk_buff *skb;
+	u8 * buf;
+
+	buf = kmalloc(count + 4, GFP_KERNEL);
+	addr = cpu_to_le32(addr);
+	memcpy(buf, &addr, 4);
+	memcpy(&buf[4], data, count);
+
+	skb = __hci_cmd_sync(hdev, 0xfc4c, count+4, buf, HCI_INIT_TIMEOUT);
+	if (IS_ERR(skb)) {
+		err = PTR_ERR(skb);
+		bt_dev_err(hdev, "BCM: write_ram failed! (%d)",
+			   err);
+		goto done;
+	}
+	kfree_skb(skb);
+done:
+	kfree(buf);
+	return err;
+
+}
+
+static const u8 brcm_cypress_patch[] = {
+	0x22, 0xF6, 0xE5, 0xF8, 0x28, 0x46, 0x00, 0xF0,
+	0x0A, 0xF8, 0x45, 0xF6, 0xDD, 0xB8, 0x00, 0x00,
+	0x3C, 0x71, 0x4B, 0xF6, 0x5D, 0xFF, 0x4B, 0xF6,
+	0xA3, 0xFC, 0x4B, 0xF6, 0x4D, 0xBB, 0x00, 0x28,
+	0x03, 0xDA, 0x80, 0x01, 0x01, 0xD5, 0x45, 0xF6,
+	0x83, 0xBB, 0x70, 0x47
+};
+
+int btbcm_cypress_apply_patch(struct hci_dev *hdev)
+{
+	struct sk_buff *skb;
+	int err = 0;
+	u8 opcode;
+
+	btbcm_poke_arm32(hdev, 0x310000, 0x29531);
+	btbcm_poke_arm32(hdev, 0x260000, 0xBF1CF1BA);
+	btbcm_poke_arm32(hdev, 0x310004, 0x2AE6A);
+	btbcm_poke_arm32(hdev, 0x260004, 0xBCB2F1B4);
+	btbcm_poke_arm32(hdev, 0x310008, 0x11B17);
+	btbcm_poke_arm32(hdev, 0x260008, 0x3DEF04F);
+	btbcm_poke_arm32(hdev, 0x310304, 0x7);
+
+	btbcm_write_ram(hdev, 0x260300, brcm_cypress_patch, sizeof(brcm_cypress_patch));
+
+	opcode = 1;
+	skb = __hci_cmd_sync(hdev, 0xfd3d, 1, &opcode, HCI_INIT_TIMEOUT);
+	if (IS_ERR(skb)) {
+		err = PTR_ERR(skb);
+		bt_dev_err(hdev, "BCM: Write_USB_Config failed (%d)",
+			   err);
+		goto done;
+	}
+	kfree_skb(skb);
+
+done:
+	return err;
+}
+
 /*
  * This currently only looks up the device tree board appendix,
  * but can be expanded to other mechanisms.
@@ -577,6 +666,7 @@ int btbcm_initialize(struct hci_dev *hdev, bool *fw_load_done, bool use_autobaud
 	bcm_fw_name *fw_name;
 	const struct firmware *fw;
 	int i, err;
+	bool doCypressPatch = false;
 
 	board_name = btbcm_get_board_name(&hdev->dev);
 
@@ -640,6 +730,9 @@ int btbcm_initialize(struct hci_dev *hdev, bool *fw_load_done, bool use_autobaud
 		kfree_skb(skb);
 
 		snprintf(postfix, sizeof(postfix), "-%4.4x-%4.4x", vid, pid);
+
+		if ((vid == 0x04b4) && (pid == 0x640c))
+			doCypressPatch = true;
 	}
 
 	fw_name = kmalloc(BCM_FW_NAME_COUNT_MAX * BCM_FW_NAME_LEN, GFP_KERNEL);
@@ -677,7 +770,10 @@ int btbcm_initialize(struct hci_dev *hdev, bool *fw_load_done, bool use_autobaud
 	}
 
 	if (*fw_load_done) {
-		err = btbcm_patchram(hdev, fw);
+		if (doCypressPatch)
+			err = btbcm_cypress_apply_patch(hdev);
+		if (!err)
+			err = btbcm_patchram(hdev, fw);
 		if (err)
 			bt_dev_info(hdev, "BCM: Patch failed (%d)", err);
 

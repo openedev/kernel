@@ -169,6 +169,13 @@ static const struct usb_device_id btusb_table[] = {
 	{ USB_DEVICE(0x8087, 0x0a5a),
 	  .driver_info = BTUSB_INTEL_BOOT | BTUSB_BROKEN_ISOC },
 
+	/*
+	 * Cypress devices with vendor specific id
+	 * This works with CYW4373, other chipsets unknown
+	 */
+	{ USB_VENDOR_AND_INTERFACE_INFO(0x04b4, 0xff, 0x01, 0x01),
+	  .driver_info = BTUSB_BCM_PATCHRAM },
+
 	{ }	/* Terminating entry */
 };
 
