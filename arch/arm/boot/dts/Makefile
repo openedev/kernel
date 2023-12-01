@@ -510,6 +510,7 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
 	imx6dl-icore-mipi.dtb \
 	imx6dl-icore-rqs.dtb \
 	imx6dl-lanmcu.dtb \
+	imx6dl-ltts.dtb \
 	imx6dl-mamoj.dtb \
 	imx6dl-mba6a.dtb \
 	imx6dl-mba6b.dtb \
