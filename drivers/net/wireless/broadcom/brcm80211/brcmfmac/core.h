@@ -12,6 +12,7 @@
 
 #include <net/cfg80211.h>
 #include "fweh.h"
+#include "fwil_types.h"
 
 #define TOE_TX_CSUM_OL		0x00000001
 #define TOE_RX_CSUM_OL		0x00000002

@@ -42,6 +42,13 @@ int brcmf_debug_create_memdump(struct brcmf_bus *bus, const void *data,
 	return 0;
 }
 
+
+int brcmf_debug_fwlog_init(struct brcmf_pub *drvr)
+{
+	return brcmf_fweh_register(drvr, BRCMF_E_TRACE,
+				brcmf_debug_trace_parser);
+}
+
 struct dentry *brcmf_debugfs_get_devdir(struct brcmf_pub *drvr)
 {
 	return drvr->wiphy->debugfsdir;

@@ -123,6 +123,7 @@ void brcmf_debugfs_add_entry(struct brcmf_pub *drvr, const char *fn,
 			     int (*read_fn)(struct seq_file *seq, void *data));
 int brcmf_debug_create_memdump(struct brcmf_bus *bus, const void *data,
 			       size_t len);
+int brcmf_debug_fwlog_init(struct brcmf_pub *drvr);
 #else
 static inline struct dentry *brcmf_debugfs_get_devdir(struct brcmf_pub *drvr)
 {
@@ -135,6 +136,12 @@ void brcmf_debugfs_add_entry(struct brcmf_pub *drvr, const char *fn,
 static inline
 int brcmf_debug_create_memdump(struct brcmf_bus *bus, const void *data,
 			       size_t len)
+{
+	return 0;
+}
+
+static inline
+int brcmf_debug_fwlog_init(struct brcmf_pub *drvr)
 {
 	return 0;
 }
