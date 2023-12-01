@@ -3080,6 +3080,32 @@ static const struct panel_desc osddisplays_osd070t1718_19ts = {
 	.connector_type = DRM_MODE_CONNECTOR_DPI,
 };
 
+static const struct drm_display_mode sgd_gviga1mcjj1c0_mode = {
+	.clock		= 71100,
+	.hdisplay	= 1280,
+	.hsync_start	= 1280 + 20,
+	.hsync_end	= 1280 + 20 + 70,
+	.htotal		= 1280 + 20 + 70 + 70,
+	.vdisplay	= 800,
+	.vsync_start	= 800 + 3,
+	.vsync_end	= 800 + 3 + 5,
+	.vtotal		= 800 + 3 + 5 + 15,
+	.flags		= DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC,
+};
+
+static const struct panel_desc sgd_gviga1mcjj1c0 = {
+	.modes = &sgd_gviga1mcjj1c0_mode,
+	.num_modes = 1,
+	.bpc = 8,
+	.size = {
+		.width = 216,
+		.height = 135,
+	},
+	.bus_flags = DRM_BUS_FLAG_DE_HIGH,
+	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
+	.connector_type = DRM_MODE_CONNECTOR_LVDS,
+};
+
 static const struct drm_display_mode pda_91_00156_a0_mode = {
 	.clock = 33300,
 	.hdisplay = 800,
@@ -4210,6 +4236,9 @@ static const struct of_device_id platform_of_match[] = {
 	}, {
 		.compatible = "osddisplays,osd070t1718-19ts",
 		.data = &osddisplays_osd070t1718_19ts,
+	}, {
+		.compatible = "sgd,gviga1mcjj1c0",
+		.data = &sgd_gviga1mcjj1c0,
 	}, {
 		.compatible = "pda,91-00156-a0",
 		.data = &pda_91_00156_a0,
