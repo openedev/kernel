@@ -149,39 +149,6 @@
 			no-map;
 		};
 	};
-
-	panel {
-		compatible = "panel-dpi";
-		power-supply = <&reg_5v>;
-		backlight = <&backlight>;
-		status = "okay";
-		width-mm = <63>;
-		height-mm = <78>;
-
-		panel-timing {
-			clock-frequency = <6000000>;
-
-
-			hactive = <320>;
-			hback-porch = <3 43 43>;
-			hfront-porch = <2 8 75>;
-			hsync-len = <2 4 43>;
-
-			vactive = <240>;
-			vback-porch = <2 12 12>;
-			vfront-porch = <2 8 37>;
-			vsync-len = <2 4 120>;
-
-			// hsync-active = <0>;
-			// vsync-active = <0>;
-			// de-active = <1>;
-		};
-
-		panel_port: endpoint {
-			remote-endpoint = <&panel_bridge_port>;
-		};
-	};
-
 };
 
 &adc1 {
@@ -199,40 +166,29 @@
 	#size-cells = <0>;
 	status = "okay";
 
+	panel@0 {
+		compatible = "panel,icn6211";
+		reg = <0>;
+		power-supply = <&reg_5v>;
+		backlight = <&backlight>;
+		enable-gpio = <&gpio2 0 GPIO_ACTIVE_HIGH>;
+
+		port {
+			panel_in: endpoint {
+				remote-endpoint = <&dsi_out>;
+			};
+		};
+	};
+
 	ports {
 		port@1 {
 			reg = <1>;
-			dsi_port: endpoint {
-				remote-endpoint = <&dsi_bridge_port>;
-			};
-		};
 
-	};
-
-	bridge@0 {
-		#address-cells = <1>;
-		#size-cells = <0>;
-		compatible = "chipone,icn6211";
-		reg = <0>;
-		data-lanes = <1>;
-		enable-gpio = <&gpio2 0 GPIO_ACTIVE_HIGH>;
-		status = "okay";
-
-		port@0 {
-			reg = <0>;
-			dsi_bridge_port: endpoint {
-				remote-endpoint = <&dsi_port>;
-			};
-		};
-
-		port@1 {
-			reg = <1>;
-			panel_bridge_port: endpoint {
-				remote-endpoint = <&panel_port>;
+			dsi_out: endpoint {
+				remote-endpoint = <&panel_in>;
 			};
 		};
 	};
-
 };
 
 &dphy {
